@@ -42,9 +42,10 @@ app.get('/',(req,res)=>{
 app.use(express.urlencoded({ extended: true , limit: '10mb' })); 
 app.use(express.json({ limit: '10mb' }));
 app.use(cors({
-  origin: "http://localhost:3000", // or whatever your frontend is on
+  origin: ["http://localhost:3000", "https://pssouts-2.onrender.com"],
   credentials: true
 }));
+
 app.use(session({
   secret: 'your-secret-key', // change this to a strong secret
   resave: false,
