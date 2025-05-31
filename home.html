@@ -231,13 +231,13 @@
     </div>
     <button class="menu-toggle">≡</button>
     <ul class="nav-links">
-      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
-      <li><a href="http://localhost:3000/eventdmin" class="nav-link">Events</a></li>
-      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
-      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
-      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
-      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
-      <li><a href="login.html" class="nav-link">Login</a></li>
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/eventdmin" class="nav-link">Events</a></li>
+      <li><a href="/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="/giving" class="nav-link">Contributions</a></li>
+      <li><a href="/glr" class="nav-link">Gallery</a></li>
+      <li><a href="/contct" class="nav-link">Contact</a></li>
+      <li><a href="/login" class="nav-link">Login</a></li>
     </ul>
   </div>
 
@@ -245,7 +245,7 @@
   <section class="hero">
     <h1>Welcome to IIIT Sonepat Alumni Portal</h1>
     <p>Connect with your IIIT Sonepat Alumni Family</p>
-    <a href="http://localhost:3000/signup" class="btn">Join the Community</a>
+    <a href="/signup" class="btn">Join the Community</a>
   </section>
 
 
@@ -256,28 +256,28 @@
         <img src="people/photo1.jpg" alt="Members Icon">
         <h3 id="memberNumber">499+</h3>
         <p>Members</p>
-        <a href="http://localhost:3000/members" class="btn">View Details</a>
+        <a href="/members" class="btn">View Details</a>
       </div>
 
       <div class="stat-item">
         <img src="people/company.jpeg" alt="Companies Icon">
         <h3 id="companyNumber">49+</h3>
         <p>Companies</p>
-        <a href="http://localhost:3000/companies" class="btn">View Details</a>
+        <a href="/companies" class="btn">View Details</a>
       </div>
 
       <div class="stat-item">
         <img src="people/achievementicon.jpg" alt="achievements Icon">
         <h3 id="achievementNumber">19+</h3>
         <p>Achievements</p>
-        <a href="http://localhost:3000/ach" class="btn">View Details</a>
+        <a href="/ach" class="btn">View Details</a>
       </div>
 
       <div class="stat-item">
         <img src="people/country.jpeg" alt="Countries Icon">
         <h3 id="countryNumber">9+</h3>
         <p>Countries</p>
-        <a href="http://localhost:3000/countries" class="btn">View Details</a>
+        <a href="/countries" class="btn">View Details</a>
       </div>
     </div>
   </section>
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
     link.addEventListener('click', async function(e) {
       // Skip for home and login links
       if (this.href.includes('/login') || 
-          this.href.endsWith('localhost:3000/') || 
+          this.href.endsWith('/') || 
           this.href.endsWith('localhost:3000')) {
         return;
       }
