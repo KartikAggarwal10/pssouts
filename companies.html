@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Companies - IIIT Sonepat Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+     .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+       
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+    }
+
+    
+
+    .companies-section {
+      padding: 50px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #f2f7f6, #d9e4dd);
+    }
+
+    .companies-section h2 {
+      font-size: 2.2em;
+      color: #2a4d69;
+      margin-bottom: 30px;
+    }
+
+    .company-list {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .company-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .company-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .company-card h3 {
+      font-size: 1.5em;
+      color: #2a64b5;
+      margin: 0;
+      text-align: center;
+    }
+
+    .alumni-popup, .alumni-detail-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .alumni-popup h3, .alumni-detail-popup h3 {
+      font-size: 1.8em;
+      color: #2a4d69;
+      margin-top: 0;
+    }
+
+    .alumni-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .alumni-list li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .alumni-list li:hover {
+      background: #f5f5f5;
+    }
+
+    .alumni-detail-popup p {
+      margin: 10px 0;
+      color: #666;
+    }
+
+    .close-btn {
+      background: #3772c5;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .close-btn:hover {
+      background: #164991;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .company-card {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <section class="companies-section">
+    <h2>Companies with IIIT Sonepat Alumni</h2>
+    <div class="company-list" id="companyList">
+      <!-- Dynamic company cards will be added here -->
+    </div>
+  </section>
+
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="alumni-popup" id="alumniPopup">
+    <h3 id="popupCompanyName"></h3>
+    <ul class="alumni-list" id="alumniList"></ul>
+    <button class="close-btn" id="closeAlumniPopup">Close</button>
+  </div>
+
+  <div class="alumni-detail-popup" id="alumniDetailPopup">
+    <h3 id="alumniName"></h3>
+    <p><strong>Position:</strong> <span id="alumniPosition"></span></p>
+    <p><strong>Company:</strong> <span id="alumniCompany"></span></p>
+    <p><strong>Batch:</strong> <span id="alumniBatch"></span></p>
+    <p><strong>Email:</strong> <span id="alumniEmail"></span></p>
+    <p><strong>Location:</strong> <span id="alumniLocation"></span></p>
+    <p><strong>Branch:</strong> <span id="alumniBranch"></span></p>
+    <p><strong>Journey:</strong> <span id="alumniSummary"></span></p>
+    <button class="close-btn" id="closeDetailPopup">Close</button>
+  </div>
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Created by : </h2>
+      Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+      Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+      Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+    </div>
+  </footer>
+
+  <script>
+    // Fetch member data from backend
+    async function getMemberData() {
+      try {
+        const response = await fetch("http://localhost:3000/stdint");
+        const data = await response.json();
+        return data.documents || [];
+      } catch (error) {
+        console.error("Failed to fetch member data:", error);
+        return [];
+      }
+    }
+  
+    // Display companies
+    async function displayCompanies() {
+      const memberData = await getMemberData();
+      const companyList = document.getElementById("companyList");
+  
+      // Filter out members who do not have both company and position
+      const validMembers = memberData.filter(member => member.comp && member.position);
+  
+      // Extract unique companies from the filtered valid members
+      const uniqueCompanies = [...new Set(validMembers.map(member => member.comp))];
+  
+      // Create company cards dynamically
+      companyList.innerHTML = uniqueCompanies.map(company => `
+        <div class="company-card" data-company="${company}">
+          <h3>${company}</h3>
+        </div>
+      `).join("");
+  
+      // Add click event listener for each company card
+      document.querySelectorAll(".company-card").forEach(card => {
+        card.addEventListener("click", showAlumni);
+      });
+    }
+  
+    // Show alumni for a selected company
+    async function showAlumni(event) {
+      const company = event.currentTarget.dataset.company;
+      const memberData = await getMemberData();
+  
+      // Filter alumni data for the selected company, excluding those without a company or position
+      const alumni = memberData.filter(member => 
+        (member.comp === company && member.position) // Ensure company and position are present
+      );
+  
+      const popup = document.getElementById("alumniPopup");
+      const overlay = document.getElementById("overlay");
+      const popupCompanyName = document.getElementById("popupCompanyName");
+      const alumniList = document.getElementById("alumniList");
+  
+      // If there are no alumni for this company, do not display the popup
+      if (alumni.length === 0) {
+        popup.style.display = "none";
+        overlay.style.display = "none";
+        return;
+      }
+  
+      popupCompanyName.textContent = company;
+      alumniList.innerHTML = alumni.map(alumnus => `
+        <li data-name="${alumnus.name}">${alumnus.name}</li>
+      `).join("");
+  
+      popup.style.display = "block";
+      overlay.style.display = "block";
+  
+      // Add click event to alumni names
+      document.querySelectorAll(".alumni-list li").forEach(item => {
+        item.addEventListener("click", showAlumniDetails);
+      });
+    }
+  
+    // Show alumni details
+    async function showAlumniDetails(event) {
+      const name = event.target.dataset.name;
+      const memberData = await getMemberData();
+  
+      // Find the alumnus details, ensuring company and position are present
+      const alumnus = memberData.find(member => 
+        member.name === name && member.comp && member.position
+      );
+  
+      // If alumnus is not found (invalid data), just return
+      if (!alumnus) return;
+  
+      const detailPopup = document.getElementById("alumniDetailPopup");
+  
+      // Dynamically add photo if not already present
+      let photoElement = detailPopup.querySelector("#alumniPhoto");
+      if (!photoElement) {
+        photoElement = document.createElement("img");
+        photoElement.id = "alumniPhoto";
+        photoElement.style.width = "100px";
+        photoElement.style.height = "100px";
+        photoElement.style.borderRadius = "50%";
+        photoElement.style.marginBottom = "15px";
+        detailPopup.insertBefore(photoElement, detailPopup.querySelector("h3"));
+      }
+      photoElement.src = "/people/"+alumnus.photo || "https://via.placeholder.com/100";
+  
+      document.getElementById("alumniName").textContent = alumnus.name || "Not specified";
+      document.getElementById("alumniPosition").textContent = alumnus.position || "Not specified";
+      document.getElementById("alumniCompany").textContent = alumnus.comp || "Not specified";
+      document.getElementById("alumniBatch").textContent = alumnus.batch || "Not specified";
+      document.getElementById("alumniEmail").textContent = alumnus.email || "Not specified";
+      document.getElementById("alumniLocation").textContent = alumnus.location || "Not specified";
+      document.getElementById("alumniBranch").textContent = alumnus.branch || "Not specified";
+      document.getElementById("alumniSummary").textContent = alumnus.summary || "No journey available";
+  
+      detailPopup.style.display = "block";
+    }
+  
+    // Close popups
+    document.getElementById("closeAlumniPopup").addEventListener("click", () => {
+      document.getElementById("alumniPopup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    });
+  
+    document.getElementById("closeDetailPopup").addEventListener("click", () => {
+      document.getElementById("alumniDetailPopup").style.display = "none";
+    });
+  
+    document.getElementById("overlay").addEventListener("click", () => {
+      document.getElementById("alumniPopup").style.display = "none";
+      document.getElementById("alumniDetailPopup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    });
+  
+    // Mobile menu toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => navLinks.classList.toggle("active"));
+  
+    // Initialize
+    displayCompanies();
+  </script>
+  
+</body>
+</html>

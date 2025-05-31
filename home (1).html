@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IIIT Sonepat Alumni Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+      overflow-x: hidden;
+    }
+
+    
+    .hero {
+      background-color: linear-gradient(135deg, #85a5be, #63b7af);
+      color: #fff;
+      text-align: center;
+      padding: 70px 20px;
+      position: relative;
+      overflow: hidden;
+      
+      background: url("https://iiitsonepat.ac.in/storage/sliders/1-20240720063753.proposed-view-of-iiit-sonepat-permanent-campus.jpg") no-repeat center/cover;
+      background-attachment: fixed;
+     
+      z-index: 1;
+      animation: zoomIn 1s ease-out forwards;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      
+      transform: scale(1);
+      background: url("https://iiitsonepat.ac.in/storage/sliders/1-20240720063753.proposed-view-of-iiit-sonepat-permanent-campus.jpg") no-repeat center/cover;
+      background-attachment: fixed;
+      opacity: 0.5;
+      transition: transform 0.5s ease;
+    }
+
+    .hero:hover::before {
+      transform: scale(1.05); 
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(133, 165, 190, 0.3), rgba(99, 183, 175, 0.3), rgba(255, 127, 80, 0.2));
+      z-index: 0;
+      opacity: 0.5;
+      animation: aurora 10s infinite ease-in-out;
+    }
+
+    .hero h1 {
+      font-size: 2.5em;
+      margin: 0 5px;
+      position: relative;
+      z-index: 2;
+      text-shadow: 5px 4px 4px rgba(14, 11, 11, 0.3);
+      animation: textPulse 3s infinite ease-in-out;
+     
+    }
+
+    .hero p {
+      font-size: 1.4em;
+      margin: 20px 0;
+      position: relative;
+      z-index: 2;
+      animation: textPulse 3s infinite ease-in-out 0.5s;
+    }
+
+    .hero .btn {
+      background: #2c3c85;
+      color: #fff;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero .btn:hover {
+      background: #132c7c;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 127, 80, 0.7);
+    }
+
+    .hero .btn:active::after,
+    .hero .btn:active::before,
+    .hero .btn:active span::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff7f50;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spark 0.5s ease-out;
+    }
+
+    .hero .btn:active::before {
+      animation-delay: 0.1s;
+    }
+
+    .hero .btn:active span::after {
+      animation-delay: 0.2s;
+    }
+
+    /* Sections */
+    section {
+      padding: 50px 20px;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      position: relative;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    section.visible::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      opacity: 0;
+      z-index: -1;
+      animation: flash 0.3s ease-out;
+    }
+
+    section h2 {
+      font-size: 2.2em;
+      color: #2a4d69;
+      margin-bottom: 30px;
+      position: relative;
+      transition: text-shadow 0.3s ease;
+    }
+
+    section.visible h2 {
+      text-shadow: 0 0 10px rgba(42, 77, 105, 0.5);
+    }
+
+    section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #ff7f50;
+      margin: 10px auto;
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    section.visible h2::after {
+      transform: scaleX(1);
+    }
+
+    /* Dashboard */
+    .dashboard-section {
+      background: linear-gradient(135deg, #f2f7f6, #d9e4dd);
+    }
+
+    .dashboard-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      width: 160px;
+      height: 200px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s);
+    }
+
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent, rgba(255, 127, 80, 0.2), transparent);
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
+    }
+
+    .stat-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 127, 80, 0.5);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .stat-item:hover::before {
+      transform: translateY(-100%);
+    }
+
+    .stat-item:hover::after {
+      opacity: 1;
+    }
+
+    .stat-item:hover {
+      box-shadow: 0 0 20px rgba(255, 127, 80, 0.7), 0 5px 15px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+      background-color: #dfdbdb;
+    }
+
+    .stat-item img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-item:hover img {
+      animation: vibrate 0.3s infinite;
+    }
+
+    .stat-item h3 {
+      font-size: 2em;
+      color: #ff7f50;
+      margin: 0;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.1s);
+    }
+
+    .stat-item p {
+      color: #555;
+      margin: 0;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.2s);
+    }
+
+    .stat-item .btn {
+      background: #ff7f50;
+      color: #fff;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 20px;
+      margin-top: 10px;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-item .btn:hover {
+      background: #ec4e15;
+      transform: scale(1.1);
+    }
+
+    .stat-item .btn:active::after,
+    .stat-item .btn:active::before,
+    .stat-item .btn:active span::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff7f50;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spark 0.5s ease-out;
+    }
+
+    .stat-item .btn:active::before {
+      animation-delay: 0.1s;
+    }
+
+    .stat-item .btn:active span::after {
+      animation-delay: 0.2s;
+    }
+
+    /* Recent Updates */
+    .updates-section {
+      background: linear-gradient(135deg, #ffffff, #e6e6e6);
+    }
+
+    .updates {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .update-card {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      width: 300px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s);
+    }
+
+    .update-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent, rgba(255, 127, 80, 0.2), transparent);
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
+    }
+
+    .update-card::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 127, 80, 0.5);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .update-card:hover::before {
+      transform: translateY(-100%);
+    }
+
+    .update-card:hover::after {
+      opacity: 1;
+    }
+
+    .update-card:hover {
+      box-shadow: 0 0 20px rgba(255, 127, 80, 0.7), 0 8px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+      background-color: #dfdbdb;
+    }
+
+    .update-card .icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .update-card:hover .icon {
+      animation: vibrate 0.3s infinite;
+    }
+
+    .update-card h3 {
+      font-size: 1.5em;
+      color: #ff7f50;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.1s);
+    }
+
+    .update-card p {
+      color: #4b5563;
+      font-size: 1em;
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.2s);
+    }
+
+    /* Testimonials */
+    .testimonial-section {
+      background: linear-gradient(135deg, #e1e4ec, #e7e9f0);
+      padding: 50px 20px;
+    }
+
+    .testimonial-carousel {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .testimonial-item {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      width: 300px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s);
+    }
+
+    .testimonial-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent, rgba(255, 127, 80, 0.2), transparent);
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
+    }
+
+    .testimonial-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 127, 80, 0.5);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .testimonial-item:hover::before {
+      transform: translateY(-100%);
+    }
+
+    .testimonial-item:hover::after {
+      opacity: 1;
+    }
+
+    .testimonial-item:hover {
+      box-shadow: 0 0 20px rgba(255, 127, 80, 0.7), 0 8px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+      background-color: #dfdbdb;
+    }
+
+    .testimonial-item .quote-icon {
+      width: 30px;
+      height: 30px;
+      margin-bottom: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 2;
+      opacity: 0.8;
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-item:hover .quote-icon {
+      animation: vibrate 0.3s infinite;
+    }
+
+    .testimonial-item p {
+      font-size: 1em;
+      color: #4b5563;
+      margin-bottom: 15px;
+      font-style: italic;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.2s);
+    }
+
+    .testimonial-item h4 {
+      font-size: 1.2em;
+      color: #ff7f50;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.1s);
+    }
+
+    /* Features (Why Join Us) */
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: #ff7f50;
+      transition: transform 0.5s ease;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 127, 80, 0.5);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1.2);
+    }
+
+    .feature-card:hover::after {
+      opacity: 1;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 0 20px rgba(255, 127, 80, 0.7), 0 8px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+      background-color: #dfdbdb;
+    }
+
+    .feature-card h3 {
+      font-size: 1.6em;
+      color: #2a4d69;
+      margin: 15px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.1s);
+    }
+
+    .feature-card h3::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-size: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover h3::before {
+      animation: vibrate 0.3s infinite;
+    }
+
+    .feature-card:nth-child(1) h3::before {
+      background-image: url("https://img.icons8.com/ios-filled/50/ff7f50/network.png");
+    }
+
+    .feature-card:nth-child(2) h3::before {
+      background-image: url("https://img.icons8.com/ios-filled/50/ff7f50/calendar.png");
+    }
+
+    .feature-card:nth-child(3) h3::before {
+      background-image: url("https://img.icons8.com/ios-filled/50/ff7f50/mentor.png");
+    }
+
+    .feature-card p {
+      font-size: 1em;
+      color: #666;
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+      animation: float 2s infinite ease-in-out;
+      animation-delay: calc(var(--index) * 0.2s + 0.2s);
+    }
+
+    /* Animations */
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    @keyframes vibrate {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-3px);
+      }
+      75% {
+        transform: translateX(3px);
+      }
+    }
+
+    @keyframes aurora {
+      0% {
+        transform: translateX(0) translateY(0);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translateX(20px) translateY(20px);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateX(0) translateY(0);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes flash {
+      from {
+        opacity: 0.5;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes spark {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+      }
+    }
+
+    @keyframes textPulse {
+      0%, 100% {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      50% {
+        text-shadow: 0 0 10px rgba(255, 127, 80, 0.7), 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero {
+        padding: 50px 20px;
+      }
+
+      .hero::after {
+        display: none; /* Simplify aurora on mobile */
+      }
+
+      .hero h1,
+      .hero p {
+        animation: none; /* Disable pulse */
+      }
+
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      .hero p {
+        font-size: 1em;
+      }
+
+      .stat-item,
+      .feature-card,
+      .update-card,
+      .testimonial-item {
+        width: 90%;
+        animation: none; /* Disable float */
+      }
+
+      .stat-item:hover,
+      .feature-card:hover,
+      .update-card:hover,
+      .testimonial-item:hover {
+        transform: translateY(0);
+        background-color: #dfdbdb;
+      }
+
+      .stat-item::after,
+      .update-card::after,
+      .testimonial-item::after,
+      .feature-card::after {
+        display: none; /* Disable orb */
+      }
+
+      .stat-item img,
+      .update-card .icon,
+      .testimonial-item .quote-icon,
+      .feature-card h3::before {
+        animation: none; /* Disable vibrate */
+      }
+
+      .stat-item h3,
+      .stat-item p,
+      .update-card h3,
+      .update-card p,
+      .testimonial-item h4,
+      .testimonial-item p,
+      .feature-card h3,
+      .feature-card p {
+        animation: none; /* Disable float */
+      }
+
+      .testimonial-carousel {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="event.html">Events</a></li>
+      <li><a href="alumni.html">Alumni</a></li>
+      <li><a href="giving.html">Contributions</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </div>
+
+  <section class="hero">
+    <h1>Welcome to IIIT Sonepat Alumni Portal</h1>
+    <p>Connect with your IIIT Sonepat Alumni Family</p>
+    <a href="register.html" class="btn"><span>Join the Community</span></a>
+  </section>
+
+  <section class="dashboard-section section">
+    <h2>IIIT Sonepat Network</h2>
+    <div class="dashboard-stats" id="dashboardStats">
+      <div class="stat-item" style="--index: 0;">
+        <img src="photo1.jpg" alt="Members Icon">
+        <h3 id="memberNumber" data-count="499">0+</h3>
+        <p>Members</p>
+        <a href="members.html" class="btn"><span>View Details</span></a>
+      </div>
+      <div class="stat-item" style="--index: 1;">
+        <img src="company.jpeg" alt="Companies Icon">
+        <h3 id="companyNumber" data-count="49">0+</h3>
+        <p>Companies</p>
+        <a href="companies.html" class="btn"><span>View Details</span></a>
+      </div>
+      <div class="stat-item" style="--index: 2;">
+        <img src="achievementicon.jpg" alt="Achievements Icon">
+        <h3 id="achievementNumber" data-count="19">0+</h3>
+        <p>Achievements</p>
+        <a href="achievements.html" class="btn"><span>View Details</span></a>
+      </div>
+      <div class="stat-item" style="--index: 3;">
+        <img src="country.jpeg" alt="Countries Icon">
+        <h3 id="countryNumber" data-count="9">0+</h3>
+        <p>Countries</p>
+        <a href="countries.html" class="btn"><span>View Details</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="updates-section section">
+    <h2>Recent Updates</h2>
+    <div class="updates" id="recentUpdates">
+      <!-- Dynamic updates here -->
+    </div>
+  </section>
+
+  <section class="testimonial-section section">
+    <h2>What Our Alumni Say</h2>
+    <div class="testimonial-carousel">
+      <div class="testimonial-item" style="--index: 0;">
+        <img src="https://img.icons8.com/ios-filled/50/ff7f50/quote.png" alt="Quote Icon" class="quote-icon">
+        <p>"This portal connected me with mentors who shaped my career."</p>
+        <h4>Ankit Sharma, '18</h4>
+      </div>
+      <div class="testimonial-item" style="--index: 1;">
+        <img src="https://img.icons8.com/ios-filled/50/ff7f50/quote.png" alt="Quote Icon" class="quote-icon">
+        <p>"The events here are a great way to reconnect and network."</p>
+        <h4>Priya Singh, '20</h4>
+      </div>
+      <div class="testimonial-item" style="--index: 2;">
+        <img src="https://img.icons8.com/ios-filled/50/ff7f50/quote.png" alt="Quote Icon" class="quote-icon">
+        <p>"I found lifelong friends through this community."</p>
+        <h4>Rahul Verma, '19</h4>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Why Join Us?</h2>
+    <div class="features">
+      <div class="feature-card" style="--index: 0;" data-info="Networking helps alumni build professional connections, collaborate on projects, and explore career opportunities worldwide.">
+        <h3>Networking</h3>
+        <p>Link up with alumni across the globe.</p>
+      </div>
+      <div class="feature-card" style="--index: 1;" data-info="Events keep alumni engaged, offering opportunities to reconnect, share experiences, and stay updated with institute happenings.">
+        <h3>Events</h3>
+        <p>Stay in the loop with exciting events.</p>
+      </div>
+      <div class="feature-card" style="--index: 2;" data-info="Mentorship provides alumni with guidance from experienced peers, fostering personal growth and career development.">
+        <h3>Mentorship</h3>
+        <p>Grow with advice from the pros.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gaurav Jain
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Creators:</h2>
+      Vineet Kumar Yadav <br>
+      Kartik Aggrawal <br>
+      Ritik Raj Soni 
+    </div>
+  </footer>
+
+  <script>
+    // Menu Toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => navLinks.classList.toggle("active"));
+
+    // Animated Counters with Fallback
+    const counters = document.querySelectorAll(".stat-item h3");
+    const defaultStats = { members: 499, companies: 49, achievements: 19, countries: 9 };
+    let stats;
+    try {
+      stats = JSON.parse(localStorage.getItem("dashboardStats")) || defaultStats;
+    } catch (e) {
+      console.error("Error parsing dashboardStats:", e);
+      stats = defaultStats;
+    }
+    document.getElementById("memberNumber").setAttribute("data-count", stats.members);
+    document.getElementById("companyNumber").setAttribute("data-count", stats.companies);
+    document.getElementById("achievementNumber").setAttribute("data-count", stats.achievements);
+    document.getElementById("countryNumber").setAttribute("data-count", stats.countries);
+
+    const animateCounter = (counter) => {
+      const target = +counter.getAttribute("data-count") || 0;
+      let count = 0;
+      const speed = Math.max(1000 / target, 10);
+      const updateCount = () => {
+        count += Math.ceil(target / 100);
+        if (count < target) {
+          counter.innerText = count + "+";
+          setTimeout(updateCount, speed);
+        } else {
+          counter.innerText = target + "+";
+        }
+      };
+      updateCount();
+    };
+    counters.forEach((counter) => animateCounter(counter));
+
+    // Dynamic Updates Section
+    function loadRecentUpdates() {
+      const updatesContainer = document.getElementById("recentUpdates");
+      if (!updatesContainer) {
+        console.error("Recent Updates container not found!");
+        return;
+      }
+      updatesContainer.innerHTML = "";
+
+      // Top Event
+      let topEvent = null;
+      try {
+        const events = JSON.parse(localStorage.getItem("events")) || { upcoming: [], previous: [] };
+        const currentDate = new Date();
+        topEvent = events.upcoming
+          .filter((evt) => evt.date && new Date(evt.date) >= currentDate && !evt.isCompleted)
+          .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+      } catch (e) {
+        console.error("Error parsing events:", e);
+      }
+      const eventCard = document.createElement("div");
+      eventCard.className = "update-card";
+      eventCard.style.cursor = "pointer";
+      eventCard.style.setProperty('--index', 0);
+      eventCard.innerHTML = `
+        <img src="https://img.icons8.com/ios-filled/50/ff7f50/calendar.png" alt="Event Icon" class="icon">
+        <h3>${topEvent ? topEvent.topic : "No Events Yet"}</h3>
+        <p>${topEvent ? `Upcoming on ${new Date(topEvent.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}` : "Stay tuned for upcoming alumni events!"}</p>
+      `;
+      eventCard.addEventListener("click", () => {
+        window.location.href = "event.html";
+      });
+      updatesContainer.appendChild(eventCard);
+
+      // Top Contribution
+      let topContribution = null;
+      try {
+        const donations = JSON.parse(localStorage.getItem("donationData")) || [];
+        topContribution = donations.length > 0 ? donations[donations.length - 1] : null;
+      } catch (e) {
+        console.error("Error parsing donationData:", e);
+      }
+      const contributionCard = document.createElement("div");
+      contributionCard.className = "update-card";
+      contributionCard.style.cursor = "pointer";
+      contributionCard.style.setProperty('--index', 1);
+      contributionCard.innerHTML = `
+        <img src="https://img.icons8.com/ios-filled/50/ff7f50/donate.png" alt="Contribution Icon" class="icon">
+        <h3>${topContribution ? `Contribution by ${topContribution.name}` : "No Contributions Yet"}</h3>
+        <p>${topContribution ? `₹${topContribution.amount} for ${topContribution.purpose}` : "Be the first to support our community!"}</p>
+      `;
+      contributionCard.addEventListener("click", () => {
+        window.location.href = "giving.html";
+      });
+      updatesContainer.appendChild(contributionCard);
+
+      // Top Achievement
+      let topAchievement = null;
+      try {
+        const alumni = JSON.parse(localStorage.getItem("alumni")) || [];
+        topAchievement = alumni[0];
+      } catch (e) {
+        console.error("Error parsing alumni:", e);
+      }
+      const achievementCard = document.createElement("div");
+      achievementCard.className = "update-card";
+      achievementCard.style.cursor = "pointer";
+      achievementCard.style.setProperty('--index', 2);
+      achievementCard.innerHTML = `
+        <img src="https://img.icons8.com/ios-filled/50/ff7f50/trophy.png" alt="Achievement Icon" class="icon">
+        <h3>${topAchievement ? topAchievement.achievementTitle : "No Achievements Yet"}</h3>
+        <p>${topAchievement ? `By ${topAchievement.name}` : "Share your success with us!"}</p>
+      `;
+      achievementCard.addEventListener("click", () => {
+        window.location.href = "achievements.html";
+      });
+      updatesContainer.appendChild(achievementCard);
+    }
+
+    // Why Join Us Click Functionality
+    const featureCards = document.querySelectorAll(".feature-card");
+    featureCards.forEach(card => {
+      card.addEventListener("click", () => {
+        const info = card.getAttribute("data-info");
+        alert(info);
+      });
+    });
+
+    // Mouse Orb Effect for Blocks
+    function initMouseOrb() {
+      const cards = document.querySelectorAll(".stat-item, .update-card, .testimonial-item, .feature-card");
+      cards.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.querySelector("::after").style.transform = `translate(${x - 10}px, ${y - 10}px)`;
+        });
+        card.addEventListener("mouseleave", () => {
+          card.querySelector("::after").style.opacity = '0';
+        });
+        card.addEventListener("mouseenter", () => {
+          card.querySelector("::after").style.opacity = '1';
+        });
+      });
+    }
+
+    // Load updates and initialize effects
+    window.addEventListener("load", () => {
+      loadRecentUpdates();
+      initMouseOrb();
+    });
+
+    // Scroll Animation for Sections
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sections.forEach(section => observer.observe(section));
+    });
+  </script>
+</body>
+
+</html>

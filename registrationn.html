@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Registration - IIIT Sonepat Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Ensure full height and flex layout */
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+    html {
+      height: 100%;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Main content grows to push footer down */
+    .main-content {
+      flex: 1 0 auto; /* Grow to fill space, no shrinking, auto basis */
+    }
+
+
+    /* Header Section */
+    .header {
+      background: white;
+      color: #2a4d69;
+      text-align: center;
+      padding: 20px 20px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .header::before {
+      content: '✨';
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 2em;
+      opacity: 0.5;
+    }
+
+    .header h1 {
+      font-size: 2.8em;
+      margin: 0 0 10px;
+    }
+
+    .header p {
+      font-size: 1.2em;
+      margin: 0;
+    }
+
+    /* Registration Container Styling */
+    .registration-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .registration-container::before {
+      content: '🎟️';
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1.5em;
+      color: #63b7af;
+      opacity: 0.4;
+    }
+
+    .registration-container h2 {
+      font-size: 2.2em;
+      color: #2a4d69;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .registration-container h2::after {
+      content: '➤';
+      margin-left: 10px;
+      color: #226cc1;
+      font-size: 0.8em;
+    }
+
+    .registration-container label {
+      display: block;
+      font-weight: bold;
+      margin: 10px 0 5px;
+      color: #555;
+      text-align: left;
+    }
+
+    .registration-container input,
+    .registration-container select,
+    .registration-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    .registration-container input:focus,
+    .registration-container select:focus,
+    .registration-container textarea:focus {
+      border-color: #63b7af;
+      outline: none;
+    }
+
+    .registration-container input[type="submit"] {
+      margin-top: 20px;
+      padding: 12px;
+      background: #2a7cda;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .registration-container input[type="submit"]:hover {
+      background: #0f5cb4;
+    }
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .footer::after {
+      content: '🎉';
+      position: absolute;
+      top: 5px;
+      right: 20px;
+      font-size: 1.5em;
+      opacity: 0.5;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px 0;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .header h1 {
+        font-size: 2em;
+      }
+      .header p {
+        font-size: 1em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .registration-container {
+        margin: 20px 10px;
+        padding: 15px;
+      }
+      .registration-container h2 {
+        font-size: 1.8em;
+      }
+      .registration-container input,
+      .registration-container select,
+      .registration-container textarea,
+      .registration-container input[type="submit"] {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header Section -->
+    <div class="header">
+      <h1>Event Registration</h1>
+      <p>Sign up for exciting alumni events</p>
+    </div>
+
+    <!-- Registration Form Container -->
+    <div class="registration-container">
+      <h2>Register Now</h2>
+      <form action="" method="POST">
+        <!-- Full Name -->
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+    
+        <!-- Email Address -->
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    
+        <!-- Phone Number -->
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+    
+        <!-- College Name -->
+        <label for="college">College Name</label>
+        <input type="text" id="college" name="college" placeholder="Enter your college name" required>
+    
+        <!-- Batch Year -->
+        <label for="batch">Batch Year</label>
+        <select id="batch" name="batch" required>
+          <option value="">Select Batch Year</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+        </select>
+    
+        <!-- Event Selection -->
+        <label for="event">Select Event</label>
+        <select id="event" name="event" required>
+          <option value="">Select an Event</option>
+          <option value="Annual Alumni Meet">Annual Alumni Meet</option>
+          <option value="Career Webinar">Career Webinar</option>
+          <option value="AI & ML Workshop">AI & ML Workshop</option>
+          <option value="Startup Networking">Startup Networking</option>
+        </select>
+    
+        <!-- Message -->
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message" placeholder="Share your thoughts or queries about the event..." rows="4"></textarea>
+    
+        <!-- Submit Button -->
+        <input type="submit" value="Register">
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Created by : </h2>
+      Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+      Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+      Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+    </div>
+  </footer>
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>

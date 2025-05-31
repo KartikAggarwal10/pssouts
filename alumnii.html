@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Directory - IIIT Sonepat</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      background: #2a4d69;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .logo img {
+      height: 35px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      margin: 0;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background: #ff7f50;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.8em;
+      cursor: pointer;
+    }
+
+    /* Intro Section */
+    .intro-section {
+      background: linear-gradient(135deg, #2a4d69, #63b7af);
+      color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+      border-bottom: 5px solid #ff7f50;
+    }
+
+    .intro-section h1 {
+      font-size: 2.5em;
+      margin: 0;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .intro-section p {
+      font-size: 1.2em;
+      margin: 15px 0 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.9;
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .section-title {
+      text-align: center;
+      border: 2px solid black;
+      background-color: aqua;
+      border-radius: 30px;
+      font-size: 2.2em;
+      color: #2a4d69;
+      margin-bottom: 20px;
+    }
+
+    /* Alumni Directory Section */
+    .alumni-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+
+    .year-section {
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .year-header {
+      padding: 15px;
+      cursor: pointer;
+      background: #63b7af;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+      transition: background 0.3s ease;
+    }
+
+    .year-header:hover {
+      background: #4e998e;
+    }
+
+    .branch-list {
+      display: none;
+      padding: 15px;
+    }
+
+    .branch-section {
+      margin-bottom: 10px;
+    }
+
+    .branch-header {
+      padding: 10px;
+      cursor: pointer;
+      background: #ff7f50;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .branch-header:hover {
+      background: #e66a3c;
+    }
+
+    .student-list {
+      display: none;
+      padding: 10px 20px;
+    }
+
+    .student-item {
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      color: #2a4d69;
+      transition: color 0.3s ease;
+    }
+
+    .student-item:hover {
+      color: #ff7f50;
+      text-decoration: underline;
+    }
+
+    .student-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      max-width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    #studentPhoto {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #2a4d69;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px 0;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .alumni-container {
+        padding: 20px;
+      }
+      .intro-section {
+        padding: 30px 10px;
+      }
+      .intro-section h1 {
+        font-size: 2em;
+      }
+      .intro-section p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <!-- Intro Section -->
+  <div class="intro-section">
+    <h1>Welcome to Our Alumni Network</h1>
+    <p>Explore the vibrant community of IIIT Sonepat alumni, connect with past graduates, and celebrate the legacy of excellence that continues to shape our institute.</p>
+  </div>
+
+  <!-- Alumni Directory Section (All Alumni) -->
+  <div class="alumni-container" id="alumniContainer">
+    <h2 class="section-title">Alumni Directory</h2>
+  </div>
+
+  <!-- Modal for Alumni Details -->
+  <div id="studentModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">×</span>
+      <h2 id="studentName"></h2>
+      <img id="studentPhoto" src="" alt="Student Photo">
+      <p><strong>Batch:</strong> <span id="studentBatch"></span></p>
+      <p><strong>Branch:</strong> <span id="studentBranch"></span></p>
+      <p><strong>Date of Birth:</strong> <span id="studentDOB"></span></p>
+      <p><strong>Address:</strong> <span id="studentAddress"></span></p>
+      <p><strong>Contact No:</strong> <span id="studentContact"></span></p>
+      <p><strong>Email ID:</strong> <span id="studentEmail"></span></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 IIIT Sonepat Alumni Portal</p>
+  </footer>
+
+  <script>
+    // Fetch alumni data from server
+    async function getAlumniData() {
+      try {
+        const response = await fetch("/stdint");
+        const data = await response.json();
+        return data.documents || [];
+      } catch (error) {
+        console.error("Error fetching alumni data:", error);
+        return [];
+      }
+    }
+  
+    // Organize data by year and branch
+    function organizeData(alumniData) {
+      const organized = {};
+      alumniData.forEach(alumni => {
+        if (!organized[alumni.batch]) {
+          organized[alumni.batch] = {};
+        }
+        if (!organized[alumni.batch][alumni.branch]) {
+          organized[alumni.batch][alumni.branch] = [];
+        }
+        organized[alumni.batch][alumni.branch].push(alumni);
+      });
+      return organized;
+    }
+  
+    // Display alumni directory
+    async function displayAlumni() {
+      const container = document.getElementById("alumniContainer");
+      container.innerHTML = ""; // Clear existing content
+  
+      const alumniData = await getAlumniData();
+      const organizedData = organizeData(alumniData);
+  
+      if (Object.keys(organizedData).length === 0) {
+        container.innerHTML += "<p>No alumni data available yet.</p>";
+        return;
+      }
+  
+      for (const year in organizedData) {
+        const yearSection = document.createElement("div");
+        yearSection.className = "year-section";
+  
+        const yearHeader = document.createElement("div");
+        yearHeader.className = "year-header";
+        yearHeader.textContent = `Batch ${year}`;
+        yearSection.appendChild(yearHeader);
+  
+        const branchList = document.createElement("div");
+        branchList.className = "branch-list";
+  
+        for (const branch in organizedData[year]) {
+          const branchSection = document.createElement("div");
+          branchSection.className = "branch-section";
+  
+          const branchHeader = document.createElement("div");
+          branchHeader.className = "branch-header";
+          branchHeader.textContent = branch;
+          branchSection.appendChild(branchHeader);
+  
+          const studentList = document.createElement("div");
+          studentList.className = "student-list";
+  
+          organizedData[year][branch].forEach(alumni => {
+            const studentItem = document.createElement("div");
+            studentItem.className = "student-item";
+            studentItem.textContent = alumni.name;
+            studentItem.addEventListener("click", () => showStudentDetails(alumni));
+            studentList.appendChild(studentItem);
+          });
+  
+          branchSection.appendChild(studentList);
+          branchList.appendChild(branchSection);
+  
+          branchHeader.addEventListener("click", () => {
+            studentList.style.display =
+              studentList.style.display === "block" ? "none" : "block";
+          });
+        }
+  
+        yearSection.appendChild(branchList);
+        container.appendChild(yearSection);
+  
+        yearHeader.addEventListener("click", () => {
+          branchList.style.display =
+            branchList.style.display === "block" ? "none" : "block";
+        });
+      }
+    }
+  
+    // Show student details in modal
+    function showStudentDetails(alumni) {
+      document.getElementById("studentName").textContent = alumni.name;
+      document.getElementById("studentPhoto").src = "/people/" + alumni.photo;
+      document.getElementById("studentBatch").textContent = alumni.batch;
+      document.getElementById("studentBranch").textContent = alumni.branch;
+      document.getElementById("studentDOB").textContent = alumni.dob || "N/A";
+      document.getElementById("studentAddress").textContent = alumni.location || "N/A";
+      document.getElementById("studentContact").textContent = alumni.comp || "N/A";
+      document.getElementById("studentEmail").textContent = alumni.email || "N/A";
+  
+      const modal = document.getElementById("studentModal");
+      modal.style.display = "flex";
+  
+      document.getElementById("closeModal").addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+  
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    }
+  
+    // Mobile menu toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+  
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  
+    // Initialize the page
+    displayAlumni();
+  </script>
+  
+</body>
+</html>

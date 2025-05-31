@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .alumni-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .year-section {
+            background-color: #fff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .year-header {
+            padding: 15px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .year-header:hover {
+            background-color: #0056b3;
+        }
+        .branch-list {
+            display: none;
+            padding: 15px;
+        }
+        .branch-section {
+            margin-bottom: 10px;
+        }
+        .branch-header {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .branch-header:hover {
+            background-color: #218838;
+        }
+        .student-list {
+            display: none;
+            padding: 10px 20px;
+        }
+        .student-item {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            color: #007BFF;
+        }
+        .student-item:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        .student-item:last-child {
+            border-bottom: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .close-btn {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Alumni Portal</h1>
+    <div class="alumni-container" id="alumniContainer"></div>
+    <div id="studentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">×</span>
+            <h2 id="studentName"></h2>
+            <p><strong>Batch:</strong> <span id="studentBatch"></span></p>
+            <p><strong>Branch:</strong> <span id="studentBranch"></span></p>
+            <p><strong>Company:</strong> <span id="studentCompany"></span></p>
+            <p><strong>Position:</strong> <span id="studentPosition"></span></p>
+            <p><strong>Address:</strong> <span id="studentAddress"></span></p>
+            <p><strong>Contact No:</strong> <span id="studentContact"></span></p>
+            <p><strong>Email ID:</strong> <span id="studentEmail"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Load data from localStorage
+        function getAlumniData() {
+            return JSON.parse(localStorage.getItem("alumniData")) || [];
+        }
+
+        // Organize data by year and branch
+        function organizeData() {
+            const alumniData = getAlumniData();
+            const organized = {};
+            alumniData.forEach(alumni => {
+                if (!organized[alumni.batch]) {
+                    organized[alumni.batch] = {};
+                }
+                if (!organized[alumni.batch][alumni.branch]) {
+                    organized[alumni.batch][alumni.branch] = [];
+                }
+                organized[alumni.batch][alumni.branch].push(alumni);
+            });
+            return organized;
+        }
+
+        // Display the organized data
+        function displayAlumni() {
+            const container = document.getElementById("alumniContainer");
+            container.innerHTML = ""; // Clear previous content
+            const organizedData = organizeData();
+
+            if (Object.keys(organizedData).length === 0) {
+                container.innerHTML = "<p>No alumni data available yet.</p>";
+                return;
+            }
+
+            for (const year in organizedData) {
+                const yearSection = document.createElement("div");
+                yearSection.className = "year-section";
+
+                const yearHeader = document.createElement("div");
+                yearHeader.className = "year-header";
+                yearHeader.textContent = `Batch ${year}`;
+                yearSection.appendChild(yearHeader);
+
+                const branchList = document.createElement("div");
+                branchList.className = "branch-list";
+
+                for (const branch in organizedData[year]) {
+                    const branchSection = document.createElement("div");
+                    branchSection.className = "branch-section";
+
+                    const branchHeader = document.createElement("div");
+                    branchHeader.className = "branch-header";
+                    branchHeader.textContent = branch;
+                    branchSection.appendChild(branchHeader);
+
+                    const studentList = document.createElement("div");
+                    studentList.className = "student-list";
+
+                    organizedData[year][branch].forEach(alumni => {
+                        const studentItem = document.createElement("div");
+                        studentItem.className = "student-item";
+                        studentItem.textContent = alumni.name;
+                        studentItem.addEventListener("click", () => showStudentDetails(alumni));
+                        studentList.appendChild(studentItem);
+                    });
+
+                    branchSection.appendChild(studentList);
+                    branchList.appendChild(branchSection);
+
+                    branchHeader.addEventListener("click", () => {
+                        studentList.style.display = 
+                            studentList.style.display === "block" ? "none" : "block";
+                    });
+                }
+
+                yearSection.appendChild(branchList);
+                container.appendChild(yearSection);
+
+                yearHeader.addEventListener("click", () => {
+                    branchList.style.display = 
+                        branchList.style.display === "block" ? "none" : "block";
+                });
+            }
+        }
+
+        // Show student details in modal
+        function showStudentDetails(alumni) {
+            document.getElementById("studentName").textContent = alumni.name;
+            document.getElementById("studentBatch").textContent = alumni.batch;
+            document.getElementById("studentBranch").textContent = alumni.branch;
+            document.getElementById("studentCompany").textContent = alumni.company;
+            document.getElementById("studentPosition").textContent = alumni.position;
+            document.getElementById("studentAddress").textContent = alumni.address;
+            document.getElementById("studentContact").textContent = alumni.contact;
+            document.getElementById("studentEmail").textContent = alumni.email;
+
+            const modal = document.getElementById("studentModal");
+            modal.style.display = "flex";
+
+            document.getElementById("closeModal").addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        }
+
+        // Initialize the display
+        displayAlumni();
+
+        // Optional: Add a link to the form page
+        document.body.insertAdjacentHTML("beforeend", '<p style="text-align: center;"><a href="form.html">Add New Alumni</a></p>');
+    </script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Registration - Alumni Portal</title>
+  <style>
+    /* Prevent horizontal scrolling */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* General Page Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #6bcab6, #aed2e7);
+      color: #333;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: black;
+      padding: 15px 20px;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .navbar .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    
+    /* Hamburger Button - hidden on desktop, shown on mobile */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: #fff;
+      cursor: pointer;
+    }
+    
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+    }
+    
+    .navbar .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .navbar .nav-links a:hover {
+      background-color: #575757;
+    }
+    
+    /* Responsive Navigation for Mobile Devices */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .navbar .nav-links {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: black;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+      }
+      
+      .navbar .nav-links.active {
+        transform: translateX(0);
+      }
+    }
+    
+    /* Registration Container Styling */
+    .registration-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .registration-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #004aad;
+    }
+    
+    .registration-container label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    
+    .registration-container input,
+    .registration-container select,
+    .registration-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    
+    .registration-container input[type="submit"] {
+      background-color: #004aad;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    
+    .registration-container input[type="submit"]:hover {
+      background-color: #007bff;
+    }
+    
+    /* Footer Styling */
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 20px;
+      background-color:black;
+      color: #fff;
+    }
+    
+    /* Responsive Adjustments for Smaller Devices */
+    @media (max-width: 480px) {
+      .registration-container {
+        margin: 30px 10px;
+        padding: 15px;
+      }
+  
+      .registration-container h1 {
+        font-size: 2em;
+      }
+  
+      .registration-container input,
+      .registration-container select,
+      .registration-container textarea,
+      .registration-container input[type="submit"] {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="logo">
+      <img 
+      src="/people/logo.webp" 
+      alt="IIIT Sonepat Logo" 
+      style="height: 40px; vertical-align: middle; margin-right: 10px; border-radius: 5px;" 
+    />
+    
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000">Home</a></li>
+      <li><a href="http://localhost:3000/events">Events</a></li>
+      <li><a href="http://localhost:3000/ll">Alumni</a></li>
+      <li><a href="http://localhost:3000/peopledisp">People</a></li>
+      <li><a href="http://localhost:3000/glr">Gallery</a></li>
+      <li><a href="http://localhost:3000/cnt">Contact</a></li>
+      <li><a href="http://localhost:3000/login">Login</a></li>
+    </ul>
+  </div>
+  
+  <!-- Registration Form Container -->
+  <div class="registration-container">
+    <h1>Event Registration</h1>
+    <form action="" method="POST">
+      <!-- Full Name -->
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+  
+      <!-- Email Address -->
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+  
+      <!-- Phone Number -->
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+  
+      <!-- College Name -->
+      <label for="college">College Name</label>
+      <input type="text" id="college" name="college" placeholder="Enter your college name" required>
+  
+      <!-- Batch Year -->
+      <label for="batch">Batch Year</label>
+      <select id="batch" name="batch" required>
+        <option value="">Select Batch Year</option>
+        <option value="2014">2014</option>
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+      </select>
+  
+      <!-- Event Selection -->
+      <label for="event">Select Event</label>
+      <select id="event" name="event" required>
+        <option value="">Select an Event</option>
+        <option value="Annual Alumni Meet">Annual Alumni Meet</option>
+        <option value="Career Webinar">Career Webinar</option>
+        <option value="AI & ML Workshop">AI & ML Workshop</option>
+        <option value="Startup Networking">Startup Networking</option>
+      </select>
+  
+      <!-- Message -->
+      <label for="message">Message (optional)</label>
+      <textarea id="message" name="message" placeholder="Share your thoughts or queries about the event..." rows="4"></textarea>
+  
+      <!-- Submit Button -->
+      <input type="submit" value="Register">
+    </form>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Alumni Portal | All Rights Reserved</p>
+  </footer>
+  
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>

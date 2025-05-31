@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Email to Alumni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #emailList, #serverStatus {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Send Email to Alumni</h1>
+    <div class="email-container">
+        <p id="serverStatus">Checking server status...</p>
+        <form id="emailForm">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" placeholder="Enter email subject" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" placeholder="Enter your message" required></textarea>
+
+            <button type="submit">Send Email</button>
+        </form>
+        <p id="emailList"></p>
+    </div>
+
+    <script>
+        // Load alumni data from localStorage
+           // Load alumni data from localStorage
+           async function getAlumniData() {
+            let  x =await fetch("http://localhost:3000/stdin");
+            let y =await x.json();
+            console.log(y);
+            return y;
+        }
+        async  function displayEmails() {
+            const alumniData = await getAlumniData();
+            const emailList = document.getElementById("emailList");
+
+            if (alumniData.length === 0) {
+                emailList.textContent = "No alumni data available.";
+            } else {
+                emailList.textContent = `Emails: ${alumniData.emails.join(", ")}`;
+            }
+        }
+        document.getElementById("emailForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const subject = document.getElementById("subject").value;
+            const message = document.getElementById("message").value;
+            const alumniData =await getAlumniData();
+
+            if (alumniData.length === 0) {
+                alert("No alumni data found to send emails to!");
+                return;
+            }
+
+            const emails = alumniData.emails;
+
+            // Send request to backend
+            try {
+                const response = await fetch('http://localhost:3000/send-emails', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ subject, message, emails })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.success);
+                    this.reset(); // Clear form
+                } else {
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Check the console for details.');
+            }
+        });
+
+        // Initialize the page
+        displayEmails();
+    </script>
+</body>
+</html>

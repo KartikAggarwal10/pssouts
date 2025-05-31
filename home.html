@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IIIT Sonepat Alumni Portal</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+    }
+
+    .navbar {
+      background: #2a4d69;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      position: sticky;
+      top: 0px;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 35px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      margin: 0;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 15px;
+    }
+
+    .nav-links a:hover {
+      border-radius: 20px;
+      background: #ff7f50;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.8em;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #85a5be, #63b7af);
+      color: #fff;
+      text-align: center;
+      /* padding: 50px; */
+    }
+
+    .hero h1 {
+      font-size: 2.5em;
+      margin: 0px 5px;
+    }
+
+    .hero p {
+      font-size: 1.4em;
+      /* margin: 25px; */
+    }
+
+    .hero .btn {
+      background: #ff7f50;
+      color: #fff;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+
+    .hero .btn:hover {
+      background: #c4560d;
+    }
+
+    section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2.2em;
+      color: #2a4d69;
+    }
+    
+    .dashboard-section {
+      background: linear-gradient(135deg, #f2f7f6, #d9e4dd);
+    }
+
+    .dashboard-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      width: 160px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+    }
+
+    .stat-item img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+
+    .stat-item h3 {
+      font-size: 2em;
+      color: #ff7f50;
+      margin: 0;
+    }
+
+    .stat-item p {
+      /* font-size: 1em; */
+      color: #555;
+      margin: 5px;
+    }
+
+    .stat-item .btn {
+      background: #ff7f50;
+      color: #fff;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 20px;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .stat-item .btn:hover {
+      background: #ec4e15;
+    }
+
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(15, 12, 12, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5em;
+      color: #ff7f50;
+      margin: 10px;
+    }
+
+    .feature-card p {
+      font-size: 1em;
+      color: #666;
+    }
+
+    .footer {
+      background: #2a4d69;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .hero h1 {
+        font-size: 2em;
+      }
+      .hero p {
+        font-size: 1em;
+      }
+      .feature-card, .stat-item {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/eventdmin" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="login.html" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  
+  <section class="hero">
+    <h1>Welcome to IIIT Sonepat Alumni Portal</h1>
+    <p>Connect with your IIIT Sonepat Alumni Family</p>
+    <a href="http://localhost:3000/signup" class="btn">Join the Community</a>
+  </section>
+
+
+  <section class="dashboard-section section">
+    <h2>IIIT Sonepat By Numbers</h2>
+    <div class="dashboard-stats" id="dashboardStats">
+      <div class="stat-item">
+        <img src="people/photo1.jpg" alt="Members Icon">
+        <h3 id="memberNumber">499+</h3>
+        <p>Members</p>
+        <a href="http://localhost:3000/members" class="btn">View Details</a>
+      </div>
+
+      <div class="stat-item">
+        <img src="people/company.jpeg" alt="Companies Icon">
+        <h3 id="companyNumber">49+</h3>
+        <p>Companies</p>
+        <a href="http://localhost:3000/companies" class="btn">View Details</a>
+      </div>
+
+      <div class="stat-item">
+        <img src="people/achievementicon.jpg" alt="achievements Icon">
+        <h3 id="achievementNumber">19+</h3>
+        <p>Achievements</p>
+        <a href="http://localhost:3000/ach" class="btn">View Details</a>
+      </div>
+
+      <div class="stat-item">
+        <img src="people/country.jpeg" alt="Countries Icon">
+        <h3 id="countryNumber">9+</h3>
+        <p>Countries</p>
+        <a href="http://localhost:3000/countries" class="btn">View Details</a>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="section">
+    <h2>Why Join Us?</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h3>Networking</h3>
+        <p>Link up with alumni across the globe.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Events</h3>
+        <p>Stay in the loop with exciting events.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Mentorship</h3>
+        <p>Grow with advice from the pros.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 IIIT Sonepat Alumni Portal</p>
+  </footer>
+
+  <script>
+    
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener("click", () => navLinks.classList.toggle("active"));
+  }
+
+  // Update dashboard stats
+  const stats = JSON.parse(localStorage.getItem("dashboardStats") || '{"members":499,"companies":49,"achievements":19,"countries":9}');
+  document.getElementById("memberNumber").textContent = stats.members + "+";
+  document.getElementById("companyNumber").textContent = stats.companies + "+";
+  document.getElementById("achievementNumber").textContent = stats.achievements + "+";
+  document.getElementById("countryNumber").textContent = stats.countries + "+";
+
+  // Handle navigation with login check
+  document.querySelectorAll('a.nav-link').forEach(link => {
+    link.addEventListener('click', async function(e) {
+      // Skip for home and login links
+      if (this.href.includes('/login') || 
+          this.href.endsWith('localhost:3000/') || 
+          this.href.endsWith('localhost:3000')) {
+        return;
+      }
+      
+      e.preventDefault();
+      
+      try {
+        const response = await fetch('/is-logged-in');
+        const data = await response.json();
+        
+        if (!data.loggedIn) {
+          const wantsLogin = confirm("Please login to access this page. Would you like to login now?");
+          if (wantsLogin) {
+            // Store the original URL to redirect after login
+            sessionStorage.setItem('redirectAfterLogin', this.href);
+            window.location.href = "/login";
+          }
+        } else {
+          window.location.href = this.href;
+        }
+      } catch (error) {
+        console.error("Error checking login status:", error);
+        window.location.href = this.href; // Fallback to normal navigation
+      }
+    });
+  });
+
+  // Make sure all nav links have the nav-link class
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.add('nav-link');
+  });
+});
+async function box(){
+        let x = await fetch("http://localhost:3000/updte");
+        let b = await x.json();
+        console.log(b);
+        document.getElementById("memberNumber").innerHTML= parseInt(b.event.member)%10 + "+" ;
+        document.getElementById("companyNumber").innerHTML=parseInt(b.event.comp)%10 + "+";
+        document.getElementById("achievementNumber").innerHTML=parseInt(b.event.ach)%10 + "+";
+        document.getElementById("countryNumber").innerHTML=parseInt(b.event.countries)%10 + "+";
+//C:\Users\dell\OneDrive\Desktop\cxyzzz\people\1742556285751-Screenshot 2025-01-12 113126.png
+let div = document.createElement("div");
+div.innerHTML = x;
+div.className="pp";
+document.getElementsByClassName("cont")[0].appendChild(div);
+       
+        
+        // for(g in b){
+        //     console.log(g.work)  ;
+        // }
+        
+    }
+    box();
+  </script>
+</body>
+</html>

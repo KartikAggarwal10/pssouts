@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Giving - IIIT Sonepat</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+      max-height: 100vh;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      height: 500px;
+    }
+    .slide.active {
+      display: block;
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+    .giving-section {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .header-section {
+      background: linear-gradient(135deg, #496996, #356dbb);
+      color: #fff;
+      padding: 50px 20px;
+      border-radius: 15px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header-section h1 {
+      font-size: 3em;
+      margin: 0;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    .recent-donations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.donation-item {
+  width: 280px; /* or adjust to fit your layout */
+  flex-shrink: 0;
+}
+
+    .header-section p {
+      font-size: 1.4em;
+      margin: 15px 0 0;
+      font-style: italic;
+      opacity: 0.9;
+    }
+    .batch-list{
+      display: flex;
+      flex-direction: column;
+        }
+      .recent-donations, .batch-list {
+      margin-bottom: 40px;
+
+    }
+    .recent-donations h2, .batch-list h2 {
+      font-size: 2em;
+      color: #2a4d69;
+      margin-bottom: 20px;
+    }
+    .donation-item {
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+    .batch-header {
+      padding: 10px;
+      background: #4683b6;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+    #batchList{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .donation-details {
+      padding: 15px;
+      color: #2a4d69;
+      transition: color 0.3s ease;
+    }
+    .donation-item:hover .donation-details {
+      color: #183e5e;
+    }
+    .donation-details p {
+      margin: 5px 0;
+      font-size: 1em;
+    }
+    .donation-details p strong {
+      color: #2a4d69;
+    }
+    .batch-section {
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+      width: 60%;
+    }
+    .batch-section .batch-header {
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .batch-section .batch-header:hover {
+      background: #204b6e;
+    }
+    .batch-donations {
+      display: none;
+      padding: 15px;
+    }
+    .donate-btn {
+      display: inline-block;
+      background: #386991;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin-top: 20px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .donate-btn:hover {
+      background: #2a3b69;
+      transform: scale(1.05);
+    }
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #69482a;
+        padding: 20px 0;
+      }
+      .nav-links.active { display: flex; }
+      .slideshow-container { max-height: 60vh; }
+      .header-section { padding: 30px 10px; }
+      .header-section h1 { font-size: 2em; }
+      .header-section p { font-size: 1.2em; }
+      .recent-donations h2, .batch-list h2 { font-size: 1.5em; }
+      .donation-item, .batch-section { margin-bottom: 15px; }
+      .donate-btn { padding: 10px 20px; font-size: 1em; }
+    }
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .but{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .recentList{
+    display: flex;
+  }
+  .recent-donations {
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.recentList {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  justify-content: center;
+}
+
+.donation-item {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  width: 280px; /* Fixed width for each item */
+  flex-shrink: 0; /* Prevents items from shrinking */
+  margin-bottom: 20px;
+}
+.batch-donations{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <div class="slideshow-container">
+    <img class="slide" src="https://texarkanafyi.com/wp-content/uploads/2016/10/collegedonation.jpg" alt="Giving 1" height="400px">
+    <img class="slide" src="https://campusmagazine.wlu.ca/images/2019/fall-winter/alumni-donation-f.jpg" alt="Giving 2" height="500px">
+    <!-- <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20250326055531.1.png" alt="Giving 3">
+    <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20240720063753.proposed-view-of-iiit-sonepat-permanent-campus.jpg" alt="Giving 4">
+    <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20240720063928.untitled-design.jpg" alt="Giving 5"> -->
+    <button class="prev" onclick="changeSlide(-1)">❮</button>
+    <button class="next" onclick="changeSlide(1)">❯</button>
+  </div>
+
+  <div class="giving-section">
+    <div class="header-section">
+      <h1>Alumni Contributions</h1>
+      <p>Building a Legacy, One Step at a Time</p>
+    </div>
+ </div>
+ <div class="recent-donations">
+  <div id="recentList" class="recentList"></div>
+</div>
+
+<div class="batch-list" style="text-align: center;">
+  <h2 style="text-align: center;">Batchwise Contributions</h2>
+  <div id="batchList" ></div>
+</div>
+
+<div class="but">
+  <a href="http://localhost:3000/donation" class="donate-btn" >Add Your Support</a>
+</div>
+
+
+  </div>
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Created by : </h2>
+      Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+      Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+      Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    slides[slideIndex].classList.add("active");
+  
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove("active"));
+      if (index >= slides.length) slideIndex = 0;
+      if (index < 0) slideIndex = slides.length - 1;
+      slides[slideIndex].classList.add("active");
+    }
+  
+    function changeSlide(n) {
+      slideIndex += n;
+      showSlide(slideIndex);
+    }
+  
+    setInterval(() => {
+      slideIndex++;
+      showSlide(slideIndex);
+    }, 5000);
+  
+    async function displayDonations() {
+      const recentList = document.getElementById("recentList");
+      const batchList = document.getElementById("batchList");
+  
+      try {
+        const res = await fetch("/donationpi");
+        const data = await res.json();
+        const donationData = data.events;
+  
+        if (!donationData || donationData.length === 0) {
+          recentList.innerHTML = "<p>No donations yet.</p>";
+          batchList.innerHTML = "";
+          return;
+        }
+  
+        // Show recent donations (last 3)
+        const recentDonations = [...donationData].reverse().slice(0, 3);
+        recentDonations.forEach(donation => {
+          const donationItem = document.createElement("div");
+          donationItem.className = "donation-item";
+          donationItem.innerHTML = `
+            <div class="donation-details">
+              <p><strong>Name:</strong> ${donation.name}</p>
+             
+              <p><strong>Amount:</strong> ₹${donation.amount}</p>
+              <p><strong>Purpose:</strong> ${donation.purpose}</p>
+              <p><strong>Email:</strong> ${donation.email}</p>
+            </div>
+          `;
+          recentList.appendChild(donationItem);
+        });
+  
+        // Organize by batch
+        const organized = {};
+        donationData.forEach(donation => {
+          if (!organized[donation.batch]) {
+            organized[donation.batch] = [];
+          }
+          organized[donation.batch].push(donation);
+        });
+  
+        for (const batch in organized) {
+          const batchSection = document.createElement("div");
+          batchSection.className = "batch-section";
+  
+          const batchHeader = document.createElement("div");
+          batchHeader.className = "batch-header";
+          batchHeader.textContent = `Batch ${batch}`;
+          batchSection.appendChild(batchHeader);
+  
+          const batchDonations = document.createElement("div");
+          batchDonations.className = "batch-donations";
+          batchDonations.style.display = "none";
+  
+          organized[batch].forEach(donation => {
+            const donationItem = document.createElement("div");
+            donationItem.className = "donation-item";
+            donationItem.innerHTML = `
+              <div class="donation-details">
+               <p><strong>Name:</strong> ${donation.name}</p>
+             
+              <p><strong>Amount:</strong> ₹${donation.amount}</p>
+              <p><strong>Purpose:</strong> ${donation.purpose}</p>
+              <p><strong>Email:</strong> ${donation.email}</p>
+              </div>
+            `;
+            batchDonations.appendChild(donationItem);
+          });
+  
+          batchSection.appendChild(batchDonations);
+          batchList.appendChild(batchSection);
+  
+          batchHeader.addEventListener("click", () => {
+            batchDonations.style.display = batchDonations.style.display === "flex" ? "none" : "flex";
+          });
+        }
+  
+      } catch (error) {
+        console.error("Failed to fetch donation data:", error);
+        recentList.innerHTML = "<p>Could not load donations. Please try again later.</p>";
+      }
+    }
+  
+    displayDonations();
+  </script>
+  
+</body>
+</html>

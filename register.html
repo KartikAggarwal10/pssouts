@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Add Member</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+      /* Background color removed */
+    }
+
+    .registration-section {
+      padding: 50px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .registration-section h1 {
+      font-size: 2.5em;
+      color: #2a4d69;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+
+      margin: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      color: #2a4d69;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .form-group textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      background: #2b60d3;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #17569e;
+    }
+    button{
+     margin: 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <section class="registration-section">
+    <h1>Alumni Registration</h1>
+    <div class="form-container">
+      <form id="memberForm" method="post"  enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text"id="name" name="name" placeholder="Enter full name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="batch">Batch:</label>
+          <select id="batch" name="batch" required>
+            <option value="" disabled selected>Select Batch</option>
+            <!-- Dynamically populated in JS -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location:</label>
+          <input type="text" id="location" name="location" placeholder="Enter location" required>
+        </div>
+
+        <div class="form-group">
+          <label for="branch">Branch:</label>
+          <select id="branch" name="branch" required>
+            <option value="" disabled selected>Select Branch</option>
+            <option value="IT">IT</option>
+            <option value="CS">CS</option>
+            <option value="DSA">DSA</option>
+            <option value="ECE">ECE</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company:</label>
+          <input type="text" id="comp" name="comp" placeholder="Enter company" required>
+        </div>
+
+        <div class="form-group">
+          <label for="position">Position in Company:</label>
+          <input type="text" id="position" name="position" placeholder="Enter position" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="Enter email" required>
+          <button type="button" onclick="sendOTP()">Send OTP</button>
+        </div>
+
+        <div class="form-group">
+          <label for="otp">Enter OTP:</label>
+          <input type="text" id="otp" name="otp" placeholder="Enter the OTP" required>
+        </div>
+
+        <div class="form-group">
+          <label for="photo">Photo URL:</label>
+          <input type="file" id="photo" name="photo" placeholder="Enter photo URL" required>
+        </div>
+
+        <div class="form-group">
+          <label for="summary">Short Summary:</label>
+          <textarea id="summary" name="summary" placeholder="Enter a short summary (e.g., career highlights)" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="pswrd">Password</label>
+          <input type="password" id="id" name="id" placeholder="Enter password" required>
+        </div>
+        <div class="form-group">
+          <label for="repswrd">re-enter password</label>
+          <input type="password" id="idc" name="idc" placeholder="check password" required>
+        </div>
+       
+        
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Created by : </h2>
+      Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+      Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+      Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+    </div>
+  </footer>
+
+  <script>
+    
+   
+    function populateBatchDropdown() {
+      const batchDropdown = document.getElementById("batch");
+      for (let year = 2014; year <= 2025; year++) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        batchDropdown.appendChild(option);
+      }
+    }
+
+    
+
+    populateBatchDropdown();
+    async function sendOTP() {
+    const email = document.getElementById("email").value;
+    if (!email) {
+      alert("Please enter an email first.");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:3000/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+      alert(data.message);
+    } catch (err) {
+      console.error("Failed to send OTP", err);
+      alert("Failed to send OTP. Try again.");
+    }
+  }
+  </script>
+</body>
+</html>

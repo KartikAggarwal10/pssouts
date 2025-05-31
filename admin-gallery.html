@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Add Gallery Items</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #2a4d69;
+      text-align: center;
+    }
+    form input, form textarea, form select {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      background: #ff7f50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+    form button:hover {
+      background: #e66a3c;
+    }
+    .gallery-list {
+      margin-top: 20px;
+    }
+    .gallery-item {
+      background: #fff;
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .gallery-item img {
+      max-width: 100px;
+      height: auto;
+      border-radius: 5px;
+    }
+    .gallery-item .details {
+      flex-grow: 1;
+      margin-left: 15px;
+    }
+    .gallery-item button {
+      background: #ff4d4d;
+      color: #fff;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .gallery-item button:hover {
+      background: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="gallery.html">Back to Gallery</a>
+  </div>
+
+  <div class="container">
+    <h1>Add Gallery Items</h1>
+    <form id="galleryForm" method="post" enctype="multipart/form-data">
+      <input type="file" name="imageUrl" id="imageUrl" required>
+      <input type="text" name="caption" id="caption" placeholder="Caption" required>
+      <select name="category" id="category" required>
+        <option value="" disabled selected>Select Category</option>
+        <option value="alumni">Alumni</option>
+        <option value="events">Events</option>
+        <option value="contributions">Contributions</option>
+        <option value="meetups">Meetups</option>
+        <option value="achievements">Achievements</option>
+      </select>
+      <button type="submit">Add Item</button>
+    </form>
+
+    <h2>Existing Gallery Items</h2>
+    <div id="galleryList" class="gallery-list"></div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+/add-ach : Add-Alumni-Achievement.html
+/dmvnt-PI: event api
+/dmvnt : events form
+/admin-fill-giving : giving dta
+/donationpi : dontion api
+/gly-upd : gallery dta

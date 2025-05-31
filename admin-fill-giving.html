@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Fill - Alumni Giving</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+    }
+    .navbar {
+      background: #2a4d69;
+      padding: 15px 20px;
+      color: #fff;
+      text-align: center;
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 15px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #2a4d69;
+      text-align: center;
+    }
+    .donation-item {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+    }
+    .donation-item input, .donation-item textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .donation-item button {
+      background: #ff7f50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .donation-item button:hover {
+      background: #e66a3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="giving.html">Back to Giving Page</a>
+  </div>
+
+  <div class="container">
+    <h1>Admin Fill Donation Details</h1>
+    <form id="adminForm" method="post">
+      <input type="text" name="name" id="name" placeholder="Full Name" required>
+      <input type="email" name="email" id="email" placeholder="Email" required>
+      <input type="text" name="batch" id="batch" placeholder="Batch (e.g., 2020)" required>
+      <input type="number" name="amount" id="amount" placeholder="Amount (₹)" required>
+      <input type="text" name="purpose" id="purpose" placeholder="Purpose of Donation" required>
+      <input type="text" name="occupation" id="occupation" placeholder="Occupation (e.g., Job, Business)" required>
+      <textarea name="message" id="message" placeholder="Message (optional)"></textarea>
+      <button type="submit">Add Donation</button>
+    </form>
+    <h2>Existing Donations</h2>
+    <div id="adminDonationList"></div>
+  </div>
+
+  <script>
+    async function fetchAndDisplayAdminDonations() {
+      const adminDonationList = document.getElementById("adminDonationList");
+  
+      try {
+        const response = await fetch("http://localhost:3000/donationpi");
+        const data = await response.json();
+        const donationData = data.events || [];
+  
+        adminDonationList.innerHTML = "";
+  
+        if (donationData.length === 0) {
+          adminDonationList.innerHTML = "<p>No donations yet.</p>";
+          return;
+        }
+  
+        donationData.forEach((donation) => {
+          const donationItem = document.createElement("div");
+          donationItem.className = "donation-item";
+          donationItem.innerHTML = `
+            <p><strong>Name:</strong> ${donation.name}</p>
+            <p><strong>Email:</strong> ${donation.email}</p>
+            <p><strong>Batch:</strong> ${donation.batch}</p>
+            <p><strong>Amount:</strong> ₹${donation.amount}</p>
+            <p><strong>Purpose:</strong> ${donation.purpose}</p>
+            <p><strong>Occupation:</strong> ${donation.occupation}</p>
+            ${donation.message ? `<p><strong>Message:</strong> ${donation.message}</p>` : ""}
+          `;
+          adminDonationList.appendChild(donationItem);
+        });
+      } catch (error) {
+        console.error("Error fetching donation data:", error);
+        adminDonationList.innerHTML = "<p>Error loading donations.</p>";
+      }
+    }
+  
+    // Call on page load
+    fetchAndDisplayAdminDonations();
+  </script>
+  
+</body>
+</html>

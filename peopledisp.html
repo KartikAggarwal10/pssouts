@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+          body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #6bcab6, #aed2e7);
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: black ;
+      padding: 15px 20px;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /* Hamburger Button - hidden on desktop, shown on mobile */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+    }
+
+    .navbar .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+      background-color: #575757;
+    }
+
+    /* Header Section */
+    .header {
+      background: linear-gradient(to right, #092f62, #6ad9c4);
+      color: #dad2f7;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header h1 {
+      font-size: 2.8em;
+      margin: 0;
+    }
+
+    .header p {
+      margin: 5px 0 0;
+      font-size: 1.2em;
+    }
+
+    /* Event Section Container */
+    .events-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Individual Event Card */
+    .event {
+      background: linear-gradient(rgb(191, 139, 233), rgb(191, 235, 206));
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .event:hover {
+      transform: translateY(-5px);
+    }
+
+    .event h2 {
+      background: linear-gradient(to right, #53739c, #6ad9c4);
+      color: #fff;
+      font-size: 1.8em;
+      padding: 15px;
+      margin: 0;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .event .event-content {
+      padding: 20px;
+    }
+
+    .event .event-date {
+      font-weight: bold;
+      color: #c32e51;
+      margin-bottom: 10px;
+    }
+
+    .event p {
+      margin: 10px 0;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .event .register-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #fff;
+      background-color:#177757;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .event .register-btn:hover {
+      background-color: #0c4734;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color:black;
+      color: #fff;
+      font-size: 0.9em;
+      margin-top: 30px;
+    }
+
+    /* Section Titles */
+    .section-title {
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: #344d07;
+      margin: 40px 0 20px;
+    }
+
+    /* Responsive Styling for Mobile Devices */
+    @media (max-width: 768px) {
+      /* Show hamburger button on mobile */
+      .menu-toggle {
+        display: block;
+      }
+      
+      /* Replace the horizontal nav with a sliding menu */
+      .navbar .nav-links {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: black;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+      }
+      
+      .navbar .nav-links.active {
+        transform: translateX(0);
+      }
+      
+      /* Adjust header section fonts */
+      .header h1 {
+        font-size: 2.2em;
+      }
+      
+      .header p {
+        font-size: 1em;
+      }
+      
+      /* Adjust events container padding */
+      .events-container {
+        padding: 10px;
+      }
+      
+      /* Adjust event card content */
+      .event h2 {
+        font-size: 1.5em;
+      }
+      
+      .event .event-content {
+        padding: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      /* Further adjustments for very small devices if needed */
+      .header h1 {
+        font-size: 2em;
+      }
+      .header p {
+        font-size: 0.9em;
+      }
+      .section-title {
+        font-size: 1.8em;
+      }
+      .event .register-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+    }
+        .pr{
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            border: 0.4px solid black;
+            padding: 5px;
+            padding-left: 25px ;
+            width: 80%;
+            margin-left: 7%;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .c{
+            display: flex;
+            flex-direction: column;
+           
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+          <img 
+          src="people/logo.webp" 
+          alt="IIIT Sonepat Logo" 
+          style="height: 40px; vertical-align: middle; margin-right: 10px; border-radius: 5px;" 
+        />
+        
+          IIIT Sonepat Alumni Portal
+        </div>
+        <button class="menu-toggle">≡</button>
+        <ul class="nav-links">
+          <li><a href="http://localhost:3000">Home</a></li>
+          <li><a href="http://localhost:3000/events">Events</a></li>
+          <li><a href="http://localhost:3000/ll">Alumni</a></li>
+          <li><a href="http://localhost:3000/peopledisp">People</a></li>
+          <li><a href="http://localhost:3000/glr">Gallery</a></li>
+          <li><a href="http://localhost:3000/cnt">Contact</a></li>
+          <li><a href="http://localhost:3000/login">Login</a></li>
+        </ul>
+      </div>
+    <div class="cont">
+    <div class="pr">
+        <div><img src="https://images.hdqwalls.com/wallpapers/best-nature-image.jpg" width="200" alt=""> </div>
+        <div class = "c">
+        <div class="n"><h2><b>Lorem, ipsum dolor.</b></h2></div>
+            <div>
+        <div style="font-size: large; color: #000000; width: 70%; height: 80px; overflow: hidden;"> responsibility : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit? <br> Lorem, ipsum.</div>
+            <div> </div>
+        </div>
+        
+   
+</div>
+</div>
+
+<script>
+    async function box(){
+        let x = await fetch("http://localhost:3000/peoplein");
+        let b = await x.json();
+        
+       b.people.forEach(element => {
+        console.log(element);
+         let x = ` <div class="pr">
+        <div><img src=${element.photo?"./people/"+element.photo:"https://images.hdqwalls.com/wallpapers/best-nature-image.jpg"} width="200" alt=""> </div>
+        <div class = "c">
+        <div class="n"><h2><b>${element.name}</b></h2></div>
+            <div>
+        <div style="font-size: large; color: #000000; width: 70%; height: 80px; overflow: hidden;"> responsibility : ${element.work} <br> aggarwalkartik</div>
+            <div> </div>
+       </div>
+        
+   
+</div>`
+//C:\Users\dell\OneDrive\Desktop\cxyzzz\people\1742556285751-Screenshot 2025-01-12 113126.png
+let div = document.createElement("div");
+div.innerHTML = x;
+div.className="pp";
+document.getElementsByClassName("cont")[0].appendChild(div);
+        });
+        
+        // for(g in b){
+        //     console.log(g.work)  ;
+        // }
+        
+    }
+    box();
+</script>
+
+  
+  <!-- JavaScript for Mobile Menu Toggle -->
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  </script>
+</body>
+
+</html>

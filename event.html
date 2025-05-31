@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events - IIIT Sonepat Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+    hr{
+      border: 0.4px solid rgb(16, 57, 144);
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+      color: #333;
+      /* line-height: 1.6; */
+    }
+
+    /* Header Section */
+    .header {
+      color:#2a4d69;
+      background-color: white;
+      padding: 20px 20px;
+      margin-top: 20px;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+
+    .header h1 {
+      font-size: 2.8em;
+      margin: 10px;
+    }
+
+    .header p {
+      font-size: 1.2em;
+      margin: 0;
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    #eventHadding{
+      text-align: center;
+      font-size: 2em;
+      color: #2a4d69;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    h2::after {
+      content: '➤';
+      margin-left: 10px;
+      margin-bottom: 40px;
+      color: #216dc4;
+      font-size: 0.8em;
+    }
+    
+    .mm::after{
+        content: none ;
+    }
+
+    /* Timeline Section for Events */
+    .timeline-section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .timeline {
+      position: relative;
+      /* margin: 20px 0; */
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: #63b7af;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: -20px 200px;
+      position: relative;
+      min-height: 120px; /* Ensure enough space for fixed height */
+    }
+
+    .timeline-item:nth-child(even) {
+      justify-content: flex-end;
+    }
+
+    .timeline-badge {
+      position: absolute;
+      background-color: #17569e;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      z-index: 1;
+      font-size: 0.9em;
+    }
+
+    .timeline-content {
+      background: #fff;
+      padding: 15px 25px;;
+      width: 300px; /* Fixed width */
+      height: 100px; /* Fixed height */
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden; /* Hide excess content */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Ensure register button stays at bottom */
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px);
+    }
+
+    .timeline-content h3 {
+      font-size: 1.1em;
+      color: #2a4d69;
+      margin: 0 0 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .timeline-content .date {
+      font-size: 0.85em;
+      color: #777;
+      margin: 0 0 5px;
+    }
+
+    .timeline-content p {
+      font-size: 0.85em;
+      color: #555;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .timeline-content .register-btn {
+      background: #2673cb;
+      color: #fff;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 15px;
+      font-size: 0.8em;
+      transition: background 0.3s ease;
+      align-self: flex-end; /* Keep button at bottom */
+    }
+
+    .timeline-content .register-btn:hover {
+      background: #1559a7;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      max-width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .modal-register-btn {
+      background: #2c73c5;
+      color: #fff;
+      padding: 8px 15px;
+      text-decoration: none;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .modal-register-btn:hover {
+      background: #1156a5;
+    }
+
+    .organize-section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.organize-section p{
+  font-size: 1.5em;
+  color: #2a4d69;
+}
+.organize-btn {
+  background: #276ec0;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.organize-btn:hover {
+  background: #0e53a1;
+}
+.organize-modal .modal-content {
+  width: 500px;
+}
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.form-group label {
+  display: block;
+  font-size: 0.9em;
+  color: #2a4d69;
+  margin-bottom: 5px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.submit-btn {
+  background: #2368b8;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 0.9em;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+.submit-btn:hover {
+  background: #0c54a7;
+}
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px 0;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .header h1 {
+        font-size: 2em;
+      }
+      .header p {
+        font-size: 1em;
+      }
+      .timeline-item {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 20px 0;
+      }
+      .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+      }
+      .timeline-badge {
+        position: static;
+        margin-bottom: 10px;
+        transform: none;
+      }
+      .timeline-content {
+        width: 300px; /* Fixed width maintained */
+        height: 100px;
+      }
+      .timeline::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>Events</h1>
+    <p>Stay connected through past and upcoming alumni events!</p>
+  </div>
+
+  <!-- Upcoming Events Section (Timeline Style) -->
+  <div class="timeline-section" style="background-color: #bbe4ee;">
+    
+    <div id="eventHadding"><h2>Upcoming Events</h2></div>
+    
+    <div class="timeline" id="upcomingEventsTimeline">
+      <!-- Dynamic timeline items will be added here -->
+    </div>
+  </div>
+  <hr>
+
+  <!-- Previous Events Section (Timeline Style) -->
+  <div class="timeline-section" style="background-color:  #bbe4ee;">
+    <div id="eventHadding"><h2>Previous Events</h2></div>
+    <div class="timeline" id="previousEventsTimeline">
+      <!-- Dynamic timeline items will be added here -->
+    </div>
+  </div>
+  <hr>
+
+
+  <div class="organize-section" style="background-color:  #bbe4ee;">
+    <div id="eventHadding"><h2>Organize an Event</h2></div>
+    <p >Have an idea for an alumni event? Share it with us!</p>
+    <button class="organize-btn" onclick="showOrganizeForm()">Plan an Event</button>
+  </div>
+
+  <div id="organizeModal" class="modal organize-modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('organizeModal')">×</span>
+      <h2>Propose an Event</h2>
+      <form id="organizeForm">
+        <div class="form-group">
+          <label for="organizerName">Your Name</label>
+          <input type="text" id="organizerName" name="organizerName" required>
+        </div>
+        <div class="form-group">
+          <label for="organizerEmail">Your Email</label>
+          <input type="email" id="organizerEmail" name="organizerEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="organizerBatch">Batch Year</label>
+          <select id="organizerBatch" name="organizerBatch" required>
+            <option value="">Select Batch Year</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="eventTopic">Event Title</label>
+          <input type="text" id="eventTopicForm" name="eventTopic" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDate">Proposed Date</label>
+          <input type="date" id="eventDateForm" name="eventDate" required>
+        </div>
+        <div class="form-group">
+          <label for="eventType">Event Type</label>
+          <select id="eventType" name="eventType" required>
+            <option value="">Select Event Type</option>
+            <option value="In-Person">In-Person</option>
+            <option value="Virtual">Virtual</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="eventDescription">Event Description</label>
+          <textarea id="eventDescriptionForm" name="eventDescription" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit Proposal</button>
+      </form>
+    </div>
+  </div>
+<!-- Event Details Modal -->
+<div id="eventModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close-btn">×</span>
+    <h2 id="eventTopic">Event Title</h2>
+    <p><strong>Date:</strong> <span id="eventDate"></span></p>
+    <p id="eventDescription">Description</p>
+    <div id="modalRegister"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div> 
+    <h2 class="mm">Mentored by:</h2>
+      Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+  </div>
+  <div >© 2025 IIIT Sonepat Alumni Portal</div>
+  <div><h2 class="mm">Created by : </h2>
+    Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+    Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+    Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+  </div>
+</footer>
+
+  <script>
+    async function fetchEvents() {
+      try {
+        const response = await fetch("http://localhost:3000/dmvnt-PI");
+        const data = await response.json();
+        return data.events || [];
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+        return [];
+      }
+    }
+  
+    async function displayUpcomingEvents() {
+      const timelineContainer = document.getElementById("upcomingEventsTimeline");
+      const events = await fetchEvents();
+      const currentDate = new Date();
+  
+      const upcomingEvents = events.filter(evt => new Date(evt.eventDate) >= currentDate);
+      timelineContainer.innerHTML = "";
+  
+      if (upcomingEvents.length === 0) {
+        timelineContainer.innerHTML = "<p>No upcoming events yet.</p>";
+        return;
+      }
+  
+      upcomingEvents.forEach(evt => {
+        const timelineItem = document.createElement("div");
+        timelineItem.className = "timeline-item";
+  
+        const badge = document.createElement("div");
+        badge.className = "timeline-badge";
+        const eventDate = new Date(evt.eventDate);
+        badge.textContent = `${eventDate.toLocaleString('en-US', { month: 'short' })} ${eventDate.getDate()}`;
+        timelineItem.appendChild(badge);
+  
+        const content = document.createElement("div");
+        content.className = "timeline-content";
+        content.innerHTML = `
+          <h3>${evt.eventTopic}</h3>
+          <div class="date">${eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+          <p>${evt.eventDescription}</p>
+          <a href="http://localhost:3000/rst" class="register-btn">Register</a>
+        `;
+  
+        content.addEventListener("click", (e) => {
+          if (e.target.className !== "register-btn") {
+            showEventDetails(evt, true);
+          }
+        });
+  
+        timelineItem.appendChild(content);
+        timelineContainer.appendChild(timelineItem);
+      });
+    }
+  
+    async function displayPreviousEvents() {
+      const timelineContainer = document.getElementById("previousEventsTimeline");
+      const events = await fetchEvents();
+      const currentDate = new Date();
+  
+      const previousEvents = events.filter(evt => new Date(evt.eventDate) < currentDate);
+      timelineContainer.innerHTML = "";
+  
+      if (previousEvents.length === 0) {
+        timelineContainer.innerHTML = "<p>No previous events yet.</p>";
+        return;
+      }
+  
+      previousEvents.forEach(evt => {
+        const timelineItem = document.createElement("div");
+        timelineItem.className = "timeline-item";
+  
+        const badge = document.createElement("div");
+        badge.className = "timeline-badge";
+        const eventDate = new Date(evt.eventDate);
+        badge.textContent = `${eventDate.toLocaleString('en-US', { month: 'short' })} ${eventDate.getDate()}`;
+        timelineItem.appendChild(badge);
+  
+        const content = document.createElement("div");
+        content.className = "timeline-content";
+        content.innerHTML = `
+          <h3>${evt.eventTopic}</h3>
+          <div class="date">${eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+          <p>${evt.eventDescription}</p>
+        `;
+  
+        content.addEventListener("click", () => {showEventDetails(evt, false)});
+        timelineItem.appendChild(content);
+  
+        timelineContainer.appendChild(timelineItem);
+      });
+    }
+  
+    function showEventDetails(evt, isUpcoming) {
+      document.getElementById("eventTopic").textContent = evt.eventTopic;
+      document.getElementById("eventDate").textContent = new Date(evt.eventDate).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric'
+      });
+      document.getElementById("eventDescription").textContent = evt.eventDescription;
+  
+      const modalRegister = document.getElementById("modalRegister");
+      modalRegister.innerHTML = isUpcoming
+        ? '<a href="http://localhost:3000/rst" class="modal-register-btn">Register Now</a>'
+        : '';
+  
+      const modal = document.getElementById("eventModal");
+      modal.style.display = "flex";
+  
+      document.getElementById("closeModal").onclick = () => {
+        modal.style.display = "none";
+      };
+  
+      window.onclick = (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+    }
+  
+    function showOrganizeForm() {
+      document.getElementById("organizeModal").style.display = "flex";
+    }
+  
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+  
+    document.getElementById("organizeForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = {
+        organizerName: document.getElementById("organizerName").value,
+        organizerEmail: document.getElementById("organizerEmail").value,
+        organizerBatch: document.getElementById("organizerBatch").value,
+        eventTopic: document.getElementById("eventTopicForm").value,
+        eventDate: document.getElementById("eventDateForm").value,
+        eventType: document.getElementById("eventType").value,
+        eventDescription: document.getElementById("eventDescriptionForm").value,
+      };
+      fetch("http://localhost:3000/send-proposal", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(formData)
+})
+.then(res => res.json())
+.then(data => {
+  alert(data.message);
+  document.getElementById("organizeForm").reset();
+  closeModal("organizeModal");
+})
+.catch(err => {
+  alert("Failed to send proposal.");
+  console.error("Error:", err);
+});
+    });
+    // Mobile menu toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => navLinks.classList.toggle("active"));
+  
+    // Initialize page
+    displayUpcomingEvents();
+    displayPreviousEvents();
+  </script>
+  
+</body>
+</html>

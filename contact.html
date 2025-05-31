@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact - IIIT Sonepat Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+    html { height: 100%; }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-content { flex: 1 0 auto; }
+    
+    .header {
+      text-align: center;
+      color:#2a4d69;
+      background-color: white;
+      padding: 20px 20px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .header h1 { font-size: 2.8em; margin: 0 0 10px; }
+    .header p { font-size: 1.2em; margin: 0; }
+
+    .contact {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact h2 {
+      font-size: 2.2em;
+      color: #2a4d69;
+      margin-bottom: 20px;
+      position: relative;
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+
+    .contact h2::after {
+      content: '➤';
+      margin-left: 10px;
+      color: #3772c5;
+      font-size: 0.8em;
+    }
+
+    .contact-info, .contact-form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .contact-info p {
+      font-size: 1.1em;
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-info a {
+      color: #63b7af;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-info a:hover { color: #174d99; }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .contact-form textarea { height: 100px; resize: vertical; }
+
+    .contact-form button {
+      background: #3772c5;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover { background: #154c98; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px 0;
+      }
+      .nav-links.active { display: flex; }
+      .contact { grid-template-columns: 1fr; }
+      .header h1 { font-size: 2em; }
+      .header p { font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="header">
+      <h1>Contact Us</h1>
+      <p>Connect with IIIT Sonepat Alumni Network</p>
+    </div>
+
+    <section class="contact">
+      <h2>Reach Out</h2>
+      
+      <div class="contact-info">
+        <h2>Contact Information</h2>
+        <!-- Official info from iiitsonepat.ac.in -->
+        <p>📧 Email: <a href="mailto:vineetit12412008@iiitsonepat.ac.in">vineetit12412008@iiitsonepat.ac.in</a></p>
+        <p>📧 Alumni-Cell Email: <a href="mailto:alumni.cell@iiitsonepat.ac.in">alumni.cell@iiitsonepat.ac.in</a></p>
+        <p>📞 Phone: <a href="tel:+916386177635"> 6386177635
+</a></p>
+        <p>🏢 Address: Indian Institute of Information Technology Sonepat,
+          IIT Delhi Techno park
+          Rajiv Gandhi Education City
+          Rai, Sonipat
+          Haryana-131001 (INDIA)</p>
+        <p>🌐 Website: <a href="http://iiitsonepat.ac.in" target="_blank">iiitsonepat.ac.in</a></p>
+      </div>
+
+      <div class="contact-form">
+        <h2>Feedback Counter</h2>
+        <form method="POST" action="/send-feedback">
+          <input type="text" name="name" id="name" placeholder="Your Name" required />
+          <input type="email" name="email" id="email" placeholder="Your Email" required />
+          <input type="text" name="subject" id="subject" placeholder="Subject" required />
+          <textarea name="message" id="message" placeholder="Give Suggestions/Feedback !" required></textarea>
+          <button type="submit">Summit</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Created by : </h2>
+      Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+      Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+      Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+    </div>
+  </footer>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>

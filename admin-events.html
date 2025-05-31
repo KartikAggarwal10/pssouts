@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Manage Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .form-container, .events-list {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .event-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .event-item:last-child {
+      border-bottom: none;
+    }
+    .event-actions {
+      margin-top: 10px;
+    }
+    .delete-btn {
+      background-color: #dc3545;
+    }
+    .delete-btn:hover {
+      background-color: #c82333;
+    }
+    .complete-btn {
+      background-color: #28a745;
+    }
+    .complete-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin - Manage Events</h1>
+
+  <!-- Add Event Form -->
+  <div class="form-container">
+    <form id="eventForm" method="post">
+      <label for="eventTopic">Event Topic:</label>
+      <input type="text" id="eventTopic" name="eventTopic" required>
+
+      <label for="eventDate">Event Date:</label>
+      <input type="date" id="eventDate" name="eventDate" required>
+
+      <label for="eventDescription">Event Description:</label>
+      <textarea id="eventDescription" name="eventDescription" rows="4" required></textarea>
+
+      <button type="submit">Add Event</button>
+    </form>
+  </div>
+
+  <!-- Events List -->
+  <div class="events-list" id="eventsList">
+    <h2>Current Events</h2>
+    <!-- Dynamic event items will be added here -->
+  </div>
+  <script>
+    async function loadCurrentEvents() {
+      const container = document.getElementById("eventsList");
+      if (!container) return console.error("Events container not found");
+  
+      try {
+        const res = await fetch("http://localhost:3000/dmvnt-PI");
+        const data = await res.json();
+        const events = data.events || [];
+  
+        const today = new Date();
+        const upcomingEvents = events
+          .filter(evt => new Date(evt.eventDate) > today)
+          .sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
+  
+        if (upcomingEvents.length === 0) {
+          container.innerHTML += `<p>No upcoming events found.</p>`;
+          return;
+        }
+  
+        upcomingEvents.forEach((event, index) => {
+          const eventItem = document.createElement("div");
+          eventItem.className = "event-item";
+          eventItem.style.setProperty('--index', index);
+          eventItem.innerHTML = `
+            <h3>${event.eventTopic}</h3>
+            <p><strong>Date:</strong> ${new Date(event.eventDate).toLocaleDateString()}</p>
+            <p>${event.eventDescription}</p>
+          `;
+          container.appendChild(eventItem);
+        });
+      } catch (err) {
+        console.error("Error fetching events:", err);
+        container.innerHTML += `<p>Error loading events.</p>`;
+      }
+    }
+  
+    window.addEventListener("DOMContentLoaded", loadCurrentEvents);
+  </script>
+  
+
+</body>
+</html>

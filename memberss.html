@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Members - IIIT Sonepat Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+    }
+
+
+    .container {
+      display: flex;
+      min-width: 1472px;
+      width:100%;
+      padding: 20px;
+      min-height: calc(100vh - 120px);
+      padding-bottom: 80px;
+    }
+
+    .filter-sidebar {
+      width: 350px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+      margin-right: 20px;
+      position: sticky;
+      top: 85px;
+      height: fit-content;
+      /* z-index: 900; */
+    }
+
+    .filter-sidebar h2 {
+      color: #2a4d69;
+      font-size: 1.5em;
+      /* margin-bottom: 15px; */
+    }
+
+    .filter-sidebar select,
+    .filter-sidebar input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .content h1 {
+      color: #2a4d69;
+      /* margin-bottom: 20px; */
+    }
+
+
+    .members-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .member-block {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .member-block:hover {
+      transform: translateY(-5px);
+    }
+
+    .member-block img {
+      width: 200px;
+      height: 200px;
+      border-radius: 100px;
+      border: 2px solid #3772c5;
+      margin-right: 15px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .member-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .member-info h2 {
+      color: #2346ae;
+      margin: 0 0 5px;
+    }
+
+    .member-info p {
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .member-info .summary {
+      font-style: italic;
+      color: #777;
+      max-height: 60px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .member-info .summary.full {
+      max-height: 500px;
+    }
+
+    .read-more {
+      color: #2346ae;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .navbar {
+        position: sticky;
+        top: 0px;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .container {
+        flex-direction: column;
+        padding-bottom: 100px;
+      }
+
+      .filter-sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+        position: sticky;
+        top: 27px;
+      }
+
+      .member-block {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .member-block img {
+        margin: 0 0 10px;
+      }
+
+      .member-info .summary {
+        max-height: 80px;
+      }
+
+      .member-info .summary.full {
+        max-height: 600px;
+      }
+    }
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+
+    <div class="filter-sidebar">
+      <h2>Filters</h2>
+      <select id="batchFilter">
+        <option value="">All Batches</option>
+
+      </select>
+
+      <input type="text" id="locationFilter" placeholder="Filter by Location" style="width: 232px;">
+
+      <select id="branchFilter">
+        <option value="">All Branches</option>
+        <option value="IT">IT</option>
+        <option value="CS">CS</option>
+        <option value="DSA">DSA</option>
+        <option value="ECE">ECE</option>
+      </select>
+
+      <input type="text" id="companyFilter" placeholder="Filter by Company" style="width: 232px;">
+    </div>
+
+
+    <div class="content">
+      <h1>Members</h1>
+      <div class="members-list" id="membersList"></div>
+    </div>
+  </div>
+
+
+  <div class="lightbox" id="lightbox">
+    <img id="lightboxImg" src="" alt="Enlarged Photo">
+  </div>
+
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Created by : </h2>
+      Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+      Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+      Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+    </div>
+  </footer>
+  <script>
+async function getMembers() {
+  try {
+    const response = await fetch("http://localhost:3000/stdint");
+    const raw = await response.json();
+
+    // Normalize fields and filter out members without batch or company
+    const members = raw.documents
+      .map(m => ({
+        name: m.name,
+        batch: m.batch,
+        location: m.location,
+        branch: m.branch,
+        company: m.comp,
+        position: m.position,
+        email: m.email,
+        photo: m.photo,
+        summary: m.summary
+      }))
+      .filter(m => m.batch && m.company); // Exclude if batch or company is missing
+
+    return members;
+  } catch (error) {
+    console.error("Failed to fetch members:", error);
+    return [];
+  }
+}
+
+  
+    function populateBatchFilter() {
+      const batchFilter = document.getElementById("batchFilter");
+      for (let year = 2014; year <= 2025; year++) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        batchFilter.appendChild(option);
+      }
+    }
+  
+    function displayMembers(members) {
+      const membersList = document.getElementById("membersList");
+      membersList.innerHTML = "";
+      members.forEach(member => {
+        const memberBlock = document.createElement("div");
+        memberBlock.classList.add("member-block");
+  
+        const photoUrl = (member.photo )
+          ? "./people/"+member.photo
+          : "https://tg-stockach.de/wp-content/uploads/2020/12/5f4d0f15338e20133dc69e95_dummy-profile-pic-300x300.png";
+  
+        memberBlock.innerHTML = `
+          <img src="${photoUrl}" alt="${member.name}">
+          <div class="member-info">
+            <h2>${member.name}</h2>
+            <p><strong>Company:</strong> ${member.company || "Not specified"}</p>
+            <p><strong>Position:</strong> ${member.position || "Not specified"}</p>
+            <p><strong>Email:</strong> ${member.email || "Not specified"}</p>
+            <p><strong>Batch:</strong> ${member.batch || "Not specified"}</p>
+            <p><strong>Branch:</strong> ${member.branch || "Not specified"}</p>
+            <p><strong>Location:</strong> ${member.location || "Not specified"}</p>
+            <div class="summary">${member.summary || "No summary available"}</div>
+            <span class="read-more">Read More</span>
+          </div>
+        `;
+        membersList.appendChild(memberBlock);
+  
+        const summaryEl = memberBlock.querySelector(".summary");
+        const readMore = memberBlock.querySelector(".read-more");
+        if (summaryEl.scrollHeight > summaryEl.clientHeight) {
+          readMore.style.display = "block";
+          readMore.addEventListener("click", () => {
+            summaryEl.classList.toggle("full");
+            readMore.textContent = summaryEl.classList.contains("full") ? "Read Less" : "Read More";
+          });
+        } else {
+          readMore.style.display = "none";
+        }
+  
+        const photo = memberBlock.querySelector("img");
+        photo.addEventListener("click", () => {
+          const lightbox = document.getElementById("lightbox");
+          const lightboxImg = document.getElementById("lightboxImg");
+          lightboxImg.src = photoUrl;
+          lightbox.style.display = "flex";
+        });
+      });
+    }
+  
+    document.getElementById("lightbox").addEventListener("click", () => {
+      document.getElementById("lightbox").style.display = "none";
+    });
+  
+    async function filterMembers() {
+  const batch = document.getElementById("batchFilter").value;
+  const location = document.getElementById("locationFilter").value.toLowerCase().trim();
+  const branch = document.getElementById("branchFilter").value;
+  const company = document.getElementById("companyFilter").value.toLowerCase().trim();
+
+  let members = await getMembers();
+
+  console.log("Raw members:", members);
+
+  if (batch) members = members.filter(m => m.batch === batch);
+  if (location) members = members.filter(m => (m.location || "").toLowerCase().includes(location));
+  if (branch) members = members.filter(m => m.branch === branch);
+  if (company) members = members.filter(m => (m.company || "").toLowerCase().includes(company));
+
+  console.log("Filtered members:", members);
+
+  displayMembers(members);
+}
+
+    document.getElementById("batchFilter").addEventListener("change", filterMembers);
+    document.getElementById("locationFilter").addEventListener("input", filterMembers);
+    document.getElementById("branchFilter").addEventListener("change", filterMembers);
+    document.getElementById("companyFilter").addEventListener("input", filterMembers);
+  
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => navLinks.classList.toggle("active"));
+  
+    // Initial load
+    (async () => {
+      populateBatchFilter();
+      const members = await getMembers();
+      displayMembers(members);
+    })();
+  </script>
+  
+  
+</body>
+
+</html>

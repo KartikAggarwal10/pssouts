@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><script type="text/javascript" src="/_vscode_livepreview_injected_script"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IIIT Sonepat Alumni Portal</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: white;
+      /* color: #612121; */
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: black;
+      padding: 15px 20px;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+    }
+
+    .navbar .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+      background-color: #575757;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(to right, #004aad, #3d6d9e),
+        url("hero-bg.jpg") no-repeat center center;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin: 0 0 10px;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      margin: 0 0 20px;
+    }
+
+    .hero .btn {
+      text-decoration: none;
+      padding: 12px 25px;
+      background-color: #ff9000;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 5px;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero .btn:hover {
+      background-color: #8f5407;
+    }
+
+    /* Sections */
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+      color: #004aad;
+    }
+
+    .section p {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .features,
+    .upcoming-events {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: linear-gradient(pink, white);
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      width: 280px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #333;
+      font-size: 1.4em;
+      margin: 0;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 1em;
+      margin-top: 10px;
+    }
+
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      margin-top: 30px;
+    }
+
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      } 
+      /* Replace the horizontal nav with a sliding menu */
+      .navbar .nav-links {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: black;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+      }
+      
+      .navbar .nav-links.active {
+        transform: translateX(0);
+      }
+      .hero {
+        padding: 80px 10px;
+      }
+      .hero h1 {
+        font-size: 2.5em;
+      }
+      .hero p {
+        font-size: 1em;
+      }
+      .card {
+        width: 90%;
+        margin: 10px auto;
+      }
+      .features,
+      .upcoming-events {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="logo">
+      <img 
+      src="logo.webp" 
+      alt="IIIT Sonepat Logo" 
+      style="height: 40px; vertical-align: middle; margin-right: 10px; border-radius: 5px;" 
+    />
+    
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="event.html">Events</a></li>
+      <li><a href="alumni.html">Alumni</a></li>
+      <li><a href="#">People</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </div>
+  
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to IIIT Sonepat Alumni Portal</h1>
+    <p>Connect, Network, and Grow with Your Alumni Community</p>
+    <a href="signup.html" class="btn">Join Now</a>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about">
+    <h2>About Our Alumni Community</h2>
+    <p>
+      Our alumni portal connects past and present students of IIIT Sonepat to
+      build a thriving community of innovators, professionals, and leaders.
+    </p>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section features">
+    <h2>Our Features</h2>
+    <div class="features">
+      <div class="card">
+        <img src="network.jpg" alt="Networking" />
+        <h3>Networking</h3>
+        <p>
+          Connect with alumni from diverse fields and expand your professional
+          network.
+        </p>
+      </div>
+      <div class="card">
+        <img src="events.jpg" alt="Events" />
+        <h3>Events</h3>
+        <p>
+          Stay informed about upcoming events, webinars, and meetups.
+        </p>
+      </div>
+      <div class="card">
+        <img src="mentorship.jpg" alt="Mentorship" />
+        <h3>Mentorship</h3>
+        <p>
+          Get guidance from experienced professionals to excel in your career.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events Section -->
+  <section class="section upcoming-events">
+    <h2>
+      <a
+        href="event.html"
+        style="text-decoration: none; color: #004aad"
+        >Upcoming Events</a
+      >
+    </h2>
+    <div class="features">
+      <div class="card">
+        <h3>Annual Alumni Meet</h3>
+        <p>Date: March 30, 2025</p>
+        <p>
+          Reconnect with fellow alumni in an evening filled with fun, networking,
+          and memories.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Webinar: Careers in Tech</h3>
+        <p>Date: April 15, 2025</p>
+        <p>
+          Hear from industry experts about evolving opportunities in the tech
+          field.
+        </p>
+      </div>
+      <div class="card">
+        <h3>AI & ML Workshop</h3>
+        <p>Date: May 10, 2025</p>
+        <p>
+          A hands-on workshop exploring AI trends for enthusiasts and professionals.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <p>© 2025 IIIT Sonepat Alumni Portal | All Rights Reserved</p>
+  </footer>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>

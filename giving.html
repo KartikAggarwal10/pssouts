@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Giving - IIIT Sonepat</title>
+  <style>
+    /* Same CSS as provided earlier */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+    }
+    .navbar {
+      background: #2a4d69;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    .navbar .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    .navbar .logo img {
+      height: 35px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      margin: 0;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      transition: background 0.3s ease;
+    }
+    .nav-links a:hover {
+      background: #104b9e;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.8em;
+      cursor: pointer;
+    }
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+      max-height: 100vh;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .slide.active {
+      display: block;
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+    .giving-section {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .header-section {
+      background: linear-gradient(135deg, #2a4d69, #63b7af);
+      color: #fff;
+      padding: 50px 20px;
+      border-radius: 15px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header-section h1 {
+      font-size: 3em;
+      margin: 0;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    .header-section p {
+      font-size: 1.4em;
+      margin: 15px 0 0;
+      font-style: italic;
+      opacity: 0.9;
+    }
+    .recent-donations, .batch-list {
+      margin-bottom: 40px;
+    }
+    .recent-donations h2, .batch-list h2 {
+      font-size: 2em;
+      color: #2a4d69;
+      margin-bottom: 20px;
+    }
+    .donation-item {
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+    .batch-header {
+      padding: 10px;
+      background: #63b7af;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+    .donation-details {
+      padding: 15px;
+      color: #2a4d69;
+      transition: color 0.3s ease;
+    }
+    .donation-item:hover .donation-details {
+      color: #124d9e;
+    }
+    .donation-details p {
+      margin: 5px 0;
+      font-size: 1em;
+    }
+    .donation-details p strong {
+      color: #2a4d69;
+    }
+    .batch-section {
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+    .batch-section .batch-header {
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .batch-section .batch-header:hover {
+      background: #4e998e;
+    }
+    .batch-donations {
+      display: none;
+      padding: 15px;
+    }
+    .donate-btn {
+      display: inline-block;
+      background: #3772c5;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin-top: 20px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .donate-btn:hover {
+      background: #104b9e;
+      transform: scale(1.05);
+    }
+    .footer {
+      background: #2a4d69;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px 0;
+      }
+      .nav-links.active { display: flex; }
+      .slideshow-container { max-height: 60vh; }
+      .header-section { padding: 30px 10px; }
+      .header-section h1 { font-size: 2em; }
+      .header-section p { font-size: 1.2em; }
+      .recent-donations h2, .batch-list h2 { font-size: 1.5em; }
+      .donation-item, .batch-section { margin-bottom: 15px; }
+      .donate-btn { padding: 10px 20px; font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="event.html">Events</a></li>
+      <li><a href="alumni.html">Alumni</a></li>
+      <li><a href="giving.html">Contributions</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </div>
+
+  <div class="slideshow-container">
+    <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20240720063928.untitled-design.jpg" alt="Giving 1">
+    <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20250327094601.isro.jpg" alt="Giving 2">
+    <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20250326055531.1.png" alt="Giving 3">
+    <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20240720063753.proposed-view-of-iiit-sonepat-permanent-campus.jpg" alt="Giving 4">
+    <img class="slide" src="https://iiitsonepat.ac.in/storage/sliders/1-20240720063928.untitled-design.jpg" alt="Giving 5">
+    <button class="prev" onclick="changeSlide(-1)">❮</button>
+    <button class="next" onclick="changeSlide(1)">❯</button>
+  </div>
+
+  <div class="giving-section">
+    <div class="header-section">
+      <h1>Alumni Contributions</h1>
+      <p>Building a Legacy, One Step at a Time</p>
+    </div>
+
+    <div class="recent-donations">
+      <h2>Latest Contributions</h2>
+      <div id="recentList"></div>
+    </div>
+
+    <div class="batch-list">
+      <h2>All Contributions by Batch</h2>
+      <div id="batchList"></div>
+    </div>
+
+    <a href="http://localhost:3000/donation" class="donate-btn">Add Your Support</a>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 IIIT Sonepat Alumni Portal</p>
+  </footer>
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  
+    // Slide Show functionality
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    slides[slideIndex].classList.add("active");
+  
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove("active"));
+      if (index >= slides.length) slideIndex = 0;
+      if (index < 0) slideIndex = slides.length - 1;
+      slides[slideIndex].classList.add("active");
+    }
+  
+    function changeSlide(n) {
+      slideIndex += n;
+      showSlide(slideIndex);
+    }
+  
+    setInterval(() => {
+      slideIndex++;
+      showSlide(slideIndex);
+    }, 5000);
+  
+    // Check if the user is logged in
+    async function checkLoginStatus() {
+      try {
+        const res = await fetch("/is-logged-in", { credentials: "include" });
+        const data = await res.json();
+        return data.loggedIn;
+      } catch (err) {
+        console.error("Login check failed", err);
+        return false;
+      }
+    }
+  
+    // Display Donations function
+    async function displayDonations() {
+      const recentList = document.getElementById("recentList");
+      const batchList = document.getElementById("batchList");
+  
+      // Check login status before showing donation data
+      const loggedIn = await checkLoginStatus();
+  
+      if (!loggedIn) {
+        const shouldLogin = confirm("You need to be logged in to view donation details. Do you want to log in now?");
+        if (shouldLogin) {
+          // Save the current URL (to redirect back after login)
+          await fetch("/set-redirect", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ url: window.location.href })
+          });
+          window.location.href = "/login"; // Redirect to login
+        }
+        return; // Stop further execution if not logged in
+      }
+  
+      // If logged in, continue to display donations
+      let donationData = JSON.parse(localStorage.getItem("donationData")) || [];
+  
+      if (donationData.length === 0) {
+        recentList.innerHTML = "<p>No donations yet.</p>";
+        batchList.innerHTML = "";
+        return;
+      }
+  
+      donationData.reverse();
+      const recentDonations = donationData.slice(0, 3);
+      recentDonations.forEach(donation => {
+        const donationItem = document.createElement("div");
+        donationItem.className = "donation-item";
+        donationItem.innerHTML = `
+          <div class="batch-header">Batch ${donation.batch}</div>
+          <div class="donation-details">
+            <p><strong>Name:</strong> ${donation.name}</p>
+            <p><strong>Email:</strong> ${donation.email}</p>
+            <p><strong>Amount:</strong> ₹${donation.amount}</p>
+            <p><strong>Purpose:</strong> ${donation.purpose}</p>
+            <p><strong>Occupation:</strong> ${donation.occupation || "Pending Admin Update"}</p>
+            ${donation.message ? `<p><strong>Message:</strong> ${donation.message}</p>` : ""}
+          </div>
+        `;
+        recentList.appendChild(donationItem);
+      });
+  
+      const organized = {};
+      donationData.forEach(donation => {
+        if (!organized[donation.batch]) {
+          organized[donation.batch] = [];
+        }
+        organized[donation.batch].push(donation);
+      });
+  
+      for (const batch in organized) {
+        const batchSection = document.createElement("div");
+        batchSection.className = "batch-section";
+  
+        const batchHeader = document.createElement("div");
+        batchHeader.className = "batch-header";
+        batchHeader.textContent = `Batch ${batch}`;
+        batchSection.appendChild(batchHeader);
+  
+        const batchDonations = document.createElement("div");
+        batchDonations.className = "batch-donations";
+        batchDonations.style.display = "none"; // Start with hidden donations list
+  
+        organized[batch].forEach(donation => {
+          const donationItem = document.createElement("div");
+          donationItem.className = "donation-item";
+          donationItem.innerHTML = `
+            <div class="donation-details">
+              <p><strong>Name:</strong> ${donation.name}</p>
+              <p><strong>Email:</strong> ${donation.email}</p>
+              <p><strong>Amount:</strong> ₹${donation.amount}</p>
+              <p><strong>Purpose:</strong> ${donation.purpose}</p>
+              <p><strong>Occupation:</strong> ${donation.occupation || "Pending Admin Update"}</p>
+              ${donation.message ? `<p><strong>Message:</strong> ${donation.message}</p>` : ""}
+            </div>
+          `;
+          batchDonations.appendChild(donationItem);
+        });
+  
+        batchSection.appendChild(batchDonations);
+        batchList.appendChild(batchSection);
+  
+        batchHeader.addEventListener("click", () => {
+          batchDonations.style.display = batchDonations.style.display === "block" ? "none" : "block";
+        });
+      }
+    }
+  
+    // Initialize donation display
+    displayDonations();
+  
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - IIIT Sonepat Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html { height: 100%; }
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content { flex: 1 0 auto; }
+    
+    .header {
+      color:#2a4d69;
+      background-color: white;
+      padding: 20px 20px;
+      margin-top: 20px;
+      text-align: center;
+      position: relative;
+      animation: slideIn 1s ease-in-out;
+    }
+    .header h1 {
+      font-size: 3.2em;
+      margin: 0 0 15px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .header p {
+      font-size: 1.4em;
+      margin: 0;
+      font-style: italic;
+      opacity: 0.9;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gallery-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .gallery-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #3772c5;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .tab-btn:hover {
+      background: #134894;
+      transform: scale(1.05);
+    }
+    .tab-btn.active { background: #3772c5; }
+    .gallery-section {
+      margin-bottom: 40px;
+    }
+    .gallery-section h2 {
+      font-size: 2.2em;
+      color: #2a4d69;
+      margin-bottom: 20px;
+      position: relative;
+      text-transform: uppercase;
+    }
+    .gallery-section h2::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: #3772c5;
+      margin: 10px auto;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+      cursor: pointer; /* Added to indicate clickability */
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item .caption {
+      padding: 10px;
+      text-align: center;
+      color: #2a4d69;
+      font-weight: bold;
+      font-size: 1em;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .coming-soon {
+      font-size: 1.5em;
+      color: #2a4d69;
+      font-style: italic;
+    }
+    
+    /* Lightbox Styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    .lightbox .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #fff;
+      font-size: 2em;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .lightbox .close-btn:hover {
+      transform: scale(1.2);
+    }
+    
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2a4d69;
+        padding: 20px 0;
+      }
+      .nav-links.active { display: flex; }
+      .header { padding: 40px 10px; }
+      .header h1 { font-size: 2.2em; }
+      .header p { font-size: 1.2em; }
+      .gallery-item img { height: 150px; }
+      .tab-btn { padding: 8px 15px; font-size: 1em; }
+    }
+    @media (max-width: 480px) {
+      .gallery { grid-template-columns: 1fr; }
+    }
+    .navbar {
+    background: hsl(216, 60%, 36%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar .logo img {
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: hsl(216, 97%, 23%);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+  .footer {
+    background:hsl(216, 60%, 36%);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="/people/logo.webp" alt="IIIT Sonepat Logo" />
+      IIIT Sonepat Alumni Portal
+    </div>
+    <button class="menu-toggle">≡</button>
+    <ul class="nav-links">
+      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
+      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
+      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
+      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
+      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
+      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="header">
+      <h1>Our Vibrant Gallery</h1>
+      <p>Celebrating Alumni, Events, Achievements, and More</p>
+    </div>
+
+    <div class="gallery-container">
+      <div class="gallery-tabs">
+        <button class="tab-btn active" data-category="all">All</button>
+        <button class="tab-btn" data-category="alumni">Alumni</button>
+        <button class="tab-btn" data-category="events">Events</button>
+        <button class="tab-btn" data-category="contributions">Contributions</button>
+        <button class="tab-btn" data-category="meetups">Meetups</button>
+        <button class="tab-btn" data-category="achievements">Achievements</button>
+      </div>
+      <div id="gallerySections"></div>
+    </div>
+  </div>
+
+  <!-- Lightbox Container -->
+  <div class="lightbox" id="lightbox">
+    <span class="close-btn" id="closeLightbox">&times;</span>
+    <img src="" alt="Lightbox Image" id="lightboxImage">
+  </div>
+
+  <footer class="footer">
+    <div> 
+      <h2>Mentored by:</h2>
+        Dr. Gourav Jain <br> Assistant Professor at IIIT Sonepat
+    </div>
+    <div >© 2025 IIIT Sonepat Alumni Portal</div>
+    <div><h2>Created by : </h2>
+      Vineet Kumar Yadav ( 1<sup>st</sup> Year , IT ) <br>
+      Kartik Aggrawal ( 1<sup>st</sup> Year , CSE ) <br>
+      Ritik Raj Soni ( 1<sup>st</sup> Year , IT )
+    </div>
+  </footer>
+
+  <script>
+    let galleryData = [];
+  
+    async function fetchGalleryItems() {
+      try {
+        const response = await fetch("http://localhost:3000/gly-updpi");
+        const data = await response.json();
+  
+        const formattedItems = [];
+        for (const category in data) {
+          const items = data[category];
+          items.forEach(item => {
+            formattedItems.push({
+              category: item.category,
+              imageUrl: item.imageUrl ? `./people/${item.imageUrl}` : './default-image.jpg',  // 👈 dynamically use image name
+              caption: item.caption || "No caption available"
+            });
+          });
+        }
+  
+        galleryData = formattedItems;
+        displayGallery("all");
+      } catch (error) {
+        console.error("Error fetching gallery items:", error);
+        document.getElementById("gallerySections").innerHTML = '<p class="coming-soon">Failed to load gallery.</p>';
+      }
+    }
+  
+    function displayGallery(category = "all") {
+      const gallerySections = document.getElementById("gallerySections");
+      const items = galleryData;
+      gallerySections.innerHTML = "";
+  
+      if (items.length === 0) {
+        gallerySections.innerHTML = '<p class="coming-soon">Coming Soon...</p>';
+        return;
+      }
+  
+      const categories = ["alumni", "events", "contributions", "meetups", "achievements"];
+  
+      if (category === "all") {
+        let hasContent = false;
+        categories.forEach(cat => {
+          const filteredItems = items.filter(item => item.category === cat);
+          if (filteredItems.length > 0) {
+            hasContent = true;
+            const section = document.createElement("div");
+            section.className = "gallery-section";
+            section.innerHTML = `<h2>${cat.charAt(0).toUpperCase() + cat.slice(1)}</h2>`;
+            const gallery = document.createElement("div");
+            gallery.className = "gallery";
+  
+            filteredItems.forEach((item, index) => {
+              const galleryItem = document.createElement("div");
+              galleryItem.className = "gallery-item";
+              galleryItem.style.animationDelay = `${index * 0.1}s`;
+              galleryItem.innerHTML = `
+                <img src="${item.imageUrl}" alt="${item.caption}">
+                <div class="caption">${item.caption}</div>
+              `;
+              gallery.appendChild(galleryItem);
+            });
+  
+            section.appendChild(gallery);
+            gallerySections.appendChild(section);
+          }
+        });
+        if (!hasContent) {
+          gallerySections.innerHTML = '<p class="coming-soon">Coming Soon...</p>';
+        }
+      } else {
+        const filteredItems = items.filter(item => item.category === category);
+        if (filteredItems.length > 0) {
+          const section = document.createElement("div");
+          section.className = "gallery-section";
+          section.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>`;
+          const gallery = document.createElement("div");
+          gallery.className = "gallery";
+  
+          filteredItems.forEach((item, index) => {
+            const galleryItem = document.createElement("div");
+            galleryItem.className = "gallery-item";
+            galleryItem.style.animationDelay = `${index * 0.1}s`;
+            galleryItem.innerHTML = `
+              <img src="${item.imageUrl}" alt="${item.caption}">
+              <div class="caption">${item.caption}</div>
+            `;
+            gallery.appendChild(galleryItem);
+          });
+  
+          section.appendChild(gallery);
+          gallerySections.appendChild(section);
+        } else {
+          gallerySections.innerHTML = '<p class="coming-soon">Coming Soon...</p>';
+        }
+      }
+  
+      const galleryItems = document.querySelectorAll(".gallery-item");
+      galleryItems.forEach(item => {
+        item.addEventListener("click", () => {
+          const imgSrc = item.querySelector("img").src;
+          const imgAlt = item.querySelector("img").alt;
+          openLightbox(imgSrc, imgAlt);
+        });
+      });
+    }
+  
+    function openLightbox(src, alt) {
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightboxImage");
+      lightboxImage.src = src;
+      lightboxImage.alt = alt;
+      lightbox.classList.add("active");
+    }
+  
+    function closeLightbox() {
+      document.getElementById("lightbox").classList.remove("active");
+    }
+  
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        displayGallery(btn.dataset.category);
+      });
+    });
+  
+    document.querySelector(".menu-toggle").addEventListener("click", () => {
+      document.querySelector(".nav-links").classList.toggle("active");
+    });
+  
+    document.getElementById("closeLightbox").addEventListener("click", closeLightbox);
+  
+    document.getElementById("lightbox").addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) {
+        closeLightbox();
+      }
+    });
+  
+    fetchGalleryItems(); // Initial call
+  </script>
+  
+</body>
+</html>
