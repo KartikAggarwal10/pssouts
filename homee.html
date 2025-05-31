@@ -884,20 +884,20 @@
     </div>
     <button class="menu-toggle">≡</button>
     <ul class="nav-links">
-      <li><a href="http://localhost:3000" class="nav-link">Home</a></li>
-      <li><a href="http://localhost:3000/events" class="nav-link">Events</a></li>
-      <li><a href="http://localhost:3000/alumni" class="nav-link">Alumni</a></li>
-      <li><a href="http://localhost:3000/giving" class="nav-link">Contributions</a></li>
-      <li><a href="http://localhost:3000/glr" class="nav-link">Gallery</a></li>
-      <li><a href="http://localhost:3000/contct" class="nav-link">Contact</a></li>
-      <li><a href="http://localhost:3000/login" class="nav-link">Login</a></li>
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/events" class="nav-link">Events</a></li>
+      <li><a href="/alumni" class="nav-link">Alumni</a></li>
+      <li><a href="/giving" class="nav-link">Contributions</a></li>
+      <li><a href="/glr" class="nav-link">Gallery</a></li>
+      <li><a href="/contct" class="nav-link">Contact</a></li>
+      <li><a href="/login" class="nav-link">Login</a></li>
     </ul>
   </div>
 
   <section class="hero">
     <h1>Welcome to IIIT Sonepat Alumni Portal</h1>
     <p>Connect with your IIIT Sonepat Alumni Family</p>
-    <a href="http://localhost:3000/signup" class="btn"><span>Join the Community</span></a>
+    <a href="/signup" class="btn"><span>Join the Community</span></a>
   </section>
 
   <section class="dashboard-section section">
@@ -907,25 +907,25 @@
         <img src="/people/photo1.jpg" alt="Members Icon">
         <h3 id="memberNumber" data-count="499">0+</h3>
         <p>Members</p>
-        <a href="http://localhost:3000/members" class="btn"><span>View Details</span></a>
+        <a href="/members" class="btn"><span>View Details</span></a>
       </div>
       <div class="stat-item" style="--index: 1;">
         <img src="/people/company.jpeg" alt="Companies Icon">
         <h3 id="companyNumber" data-count="49">0+</h3>
         <p>Companies</p>
-        <a href="http://localhost:3000/companies" class="btn"><span>View Details</span></a>
+        <a href="/companies" class="btn"><span>View Details</span></a>
       </div>
       <div class="stat-item" style="--index: 2;">
         <img src="/people/achievementicon.jpg" alt="Achievements Icon">
         <h3 id="achievementNumber" data-count="19">0+</h3>
         <p>Achievements</p>
-        <a href="http://localhost:3000/ach" class="btn"><span>View Details</span></a>
+        <a href="/ach" class="btn"><span>View Details</span></a>
       </div>
       <div class="stat-item" style="--index: 3;">
         <img src="/people/country.jpeg" alt="Countries Icon">
         <h3 id="countryNumber" data-count="9">0+</h3>
         <p>Countries</p>
-        <a href="http://localhost:3000/countries" class="btn"><span>View Details</span></a>
+        <a href="/countries" class="btn"><span>View Details</span></a>
       </div>
     </div>
   </section>
@@ -1064,7 +1064,7 @@
             <p>${topEvent ? `Upcoming on ${new Date(topEvent.eventDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}` : "Stay tuned for upcoming alumni events!"}</p>
           `;
           eventCard.addEventListener("click", () => {
-            window.location.href = "http://localhost:3000/events";
+            window.location.href = "/events";
           });
           updatesContainer.appendChild(eventCard);
         })
@@ -1087,14 +1087,14 @@
             <p>${topContribution ? `₹${topContribution.amount} for ${topContribution.purpose}` : "Be the first to support our community!"}</p>
           `;
           contributionCard.addEventListener("click", () => {
-            window.location.href = "http://localhost:3000/giving";
+            window.location.href = "/giving";
           });
           updatesContainer.appendChild(contributionCard);
         })
         .catch(err => console.error("Error fetching donations:", err));
   
       // Top Achievement from /add-ach-api
-      fetch("http://localhost:3000/add-ach-api")
+      fetch("/add-ach-api")
         .then((res) => res.json())
         .then((data) => {
           const achievements = data.events || [];
@@ -1110,7 +1110,7 @@
             <p>${topAchievement ? `By ${topAchievement.name}` : "Share your success with us!"}</p>
           `;
           achievementCard.addEventListener("click", () => {
-            window.location.href = "http://localhost:3000/ach";
+            window.location.href = "/ach";
           });
           updatesContainer.appendChild(achievementCard);
         })
